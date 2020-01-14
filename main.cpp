@@ -7,7 +7,8 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-    regex filenameRegex("[a-z0-9_.]{1,255}.log");
+    // file names with spaces and/or weird characters not accepted
+    regex filenameRegex("[a-zA-Z0-9_.]{1,255}.log");
 
     string temp;    // a virer
 
