@@ -34,6 +34,7 @@ Request & Request::operator = ( const Request & unRequest )
 // Algorithme :
 //
 {
+    return *this;
 } //----- Fin de operator =
 
 

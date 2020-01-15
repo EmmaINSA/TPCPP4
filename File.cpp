@@ -34,6 +34,7 @@ File & File::operator = ( const File & unFile )
 // Algorithme :
 //
 {
+    return *this;
 } //----- Fin de operator =
 
 
