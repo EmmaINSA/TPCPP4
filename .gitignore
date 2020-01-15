@@ -89,3 +89,5 @@ fabric.properties
 .vs/TPCPP4/v16/Browse.VC.db
 .vs/TPCPP4/v16/Browse.VC.opendb
 CMakeSettings.json
+.vs/TPCPP4/v16/ipch/AutoPCH/b710d24470016fcd/MAIN.ipch
+.vs/VSWorkspaceState.json

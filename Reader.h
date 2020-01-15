@@ -11,10 +11,21 @@
 #define Reader_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <istream>
+#include <sstream>
+#include <string>
+using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+
+struct RequestData
+{
+    string ip;
+    string timeStamp;
+    string origin;
+    string destination;
+    string browser;
+};
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Reader>
@@ -34,7 +45,7 @@ public:
     // Contrat :
     //
 
-    string GetRequest();
+    RequestData* GetRequest();
 
 //------------------------------------------------- Surcharge d'opérateurs
     Reader & operator = ( const Reader & unReader );
@@ -51,7 +62,7 @@ public:
     // Contrat :
     //
 
-    Reader (string fileToRead );
+    Reader (string fileToRead,string iDomain = "" );
     // Mode d'emploi :
     //
     // Contrat :
@@ -69,7 +80,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-ifstream* myFile;
+stringstream* myFile;
+string internalDomain;
+bool hasInternalDomain;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Reader>
