@@ -11,7 +11,7 @@
 #define REQUEST_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include <string>
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -37,6 +37,18 @@ public:
 
 //------------------------------------------------- Surcharge d'opérateurs
     Request & operator = ( const Request & unRequest );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    bool operator == (const Request& unRequest)const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    bool operator < (const Request& unRequest)const;
     // Mode d'emploi :
     //
     // Contrat :
@@ -68,7 +80,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-
+    string timeStamp;
+    string ip;
+    string webBrowser;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Request>

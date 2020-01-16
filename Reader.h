@@ -47,6 +47,8 @@ public:
 
     RequestData* GetRequest();
 
+    void ProcessRequest(RequestData& data)const;
+
 //------------------------------------------------- Surcharge d'opérateurs
     Reader & operator = ( const Reader & unReader );
     // Mode d'emploi :

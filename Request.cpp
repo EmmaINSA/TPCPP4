@@ -37,6 +37,16 @@ Request & Request::operator = ( const Request & unRequest )
     return *this;
 } //----- Fin de operator =
 
+bool Request::operator==(const Request& unRequest) const
+{
+	return timeStamp==unRequest.timeStamp;
+}
+
+bool Request::operator<(const Request& unRequest) const
+{
+	return timeStamp<unRequest.timeStamp;
+}
+
 
 //-------------------------------------------- Constructeurs - destructeur
 Request::Request ( const Request & unRequest )

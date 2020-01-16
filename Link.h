@@ -11,7 +11,10 @@
 #define LINK_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+class File;
+#include <set>
+#include <string>
+#include "Request.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -42,6 +45,17 @@ public:
     // Contrat :
     //
 
+    bool operator == (const Link& unLink)const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    bool operator < (const Link& unLink)const;
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //-------------------------------------------- Constructeurs - destructeur
     Link ( const Link & unLink );
@@ -50,7 +64,7 @@ public:
     // Contrat :
     //
 
-    Link ( );
+    Link (File* lOrigin,File* lTarget );
     // Mode d'emploi :
     //
     // Contrat :
@@ -68,6 +82,10 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
+    set<Request> myRequests;
+    int numOFRequests;
+    File* target;
+    File* origin;
 
 };
 

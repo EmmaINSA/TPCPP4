@@ -29,7 +29,25 @@ using namespace std;
 //} //----- Fin de Méthode
 
 
+const string& File::myName() const
+{
+    return label;
+}
+
+
+
 //------------------------------------------------- Surcharge d'opérateurs
+
+bool File::operator<(const File& unFile) const
+{
+    return (label < unFile.label);
+}
+
+bool File::operator==(const File& unFile) const
+{
+    return (label == unFile.label);
+}
+
 File & File::operator = ( const File & unFile )
 // Algorithme :
 //

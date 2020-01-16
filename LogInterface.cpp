@@ -1,12 +1,12 @@
 /*************************************************************************
-                           Link  -  description
+                           LogInterface  -  description
                              -------------------
     début                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Réalisation de la classe <Link> (fichier Link.cpp) ------------
+//---------- Réalisation de la classe <LogInterface> (fichier LogInterface.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -15,14 +15,14 @@ using namespace std;
 #include <iostream>
 
 //------------------------------------------------------ Include personnel
-#include "Link.h"
-#include "File.h"
+#include "LogInterface.h"
+
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Link::Méthode ( liste des paramètres )
+// type LogInterface::Méthode ( liste des paramètres )
 // Algorithme :
 //
 //{
@@ -30,62 +30,49 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-Link& Link::operator = (const Link& unLink)
+LogInterface& LogInterface::operator = (const LogInterface& unLogInterface)
 // Algorithme :
 //
 {
     return *this;
 } //----- Fin de operator =
 
-bool Link::operator==(const Link& unLink) const
-{
-    return origin->myName()==unLink.origin->myName();
-}
-
-bool Link::operator<(const Link& unLink) const
-{
-    return origin->myName() < unLink.origin->myName();
-}
 
 //-------------------------------------------- Constructeurs - destructeur
-Link::Link(const Link& unLink)
+LogInterface::LogInterface(const LogInterface& unLogInterface)
 // Algorithme :
 //
 {
+    myFileReader = nullptr;
 #ifdef MAP
-    cout << "Appel au constructeur de copie de <Link>" << endl;
+    cout << "Appel au constructeur de copie de <LogInterface>" << endl;
 #endif
-} //----- Fin de Link (constructeur de copie)
+} //----- Fin de LogInterface (constructeur de copie)
 
 
-Link::Link(File* lOrigin, File* lTarget)
+LogInterface::LogInterface(string fileName)
 // Algorithme :
 //
 {
-    numOFRequests = 0;
-    origin = lOrigin;
-    target = lTarget;
-    
+    myFileReader = new Reader(fileName);
 #ifdef MAP
-    cout << "Appel au constructeur de <Link>" << endl;
+    cout << "Appel au constructeur de <LogInterface>" << endl;
 #endif
-} //----- Fin de Link
+} //----- Fin de LogInterface
 
 
-Link::~Link()
+LogInterface::~LogInterface()
 // Algorithme :
 //
 {
+    delete myFileReader;
 #ifdef MAP
-    cout << "Appel au destructeur de <Link>" << endl;
+    cout << "Appel au destructeur de <LogInterface>" << endl;
 #endif
-} //----- Fin de ~Link
+} //----- Fin de ~LogInterface
 
 
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-
-
-
 

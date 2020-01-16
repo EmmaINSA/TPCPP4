@@ -54,13 +54,18 @@ RequestData* Reader::GetRequest() {
     
 
 
+   
+    return myData;
+}
+
+void Reader::ProcessRequest(RequestData& data)const
+{
     if (hasInternalDomain) {
-        size_t pos = myData->origin.find(internalDomain);
+        size_t pos = data.origin.find(internalDomain);
         if (pos != string::npos) {
-            myData->origin.erase(pos, internalDomain.length());
+            data.origin.erase(pos, internalDomain.length());
         }
     }
-    return myData;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
