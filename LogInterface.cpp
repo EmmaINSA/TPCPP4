@@ -29,13 +29,14 @@ using namespace std;
 //} //----- Fin de Méthode
 bool LogInterface::ReadFile()
 {
+    cout << "Starting FIle read" << endl;
     RequestData* data;
     while ((data = myFileReader->GetRequest()) != nullptr) {
-       // cout << data->ip << " " << data->timeStamp << " " << data->destination << " " << data->origin << " " << data->browser << endl;
         
         myFileReader->ProcessRequest(*data);
-        //cout << data->destination << endl;
+        
 
+        
         File* rOrigin;
         File* rTarget;
 
@@ -61,9 +62,8 @@ bool LogInterface::ReadFile()
         }
        
 
-
         rTarget->AddInbound(rOrigin, data->ip, data->browser, data->timeStamp);
-
+        
 
         delete data;
     }
@@ -74,7 +74,6 @@ bool LogInterface::ReadFile()
     for (auto const& x : myFiles) {
         File* rX = x.second;
         hitsSet.insert(rX);
-        //cout<<(*rX).MyName()<<" "<<(*rX).getHits()<<endl;
     }
 
     int i = 0;
@@ -82,12 +81,9 @@ bool LogInterface::ReadFile()
         i++;
         cout << x->MyName() << " " << x->getHits()<<endl;
         if (i >= 10) {
-           // break;
+            break;
         }
     }
-
-    
-
     return true;
 }
 

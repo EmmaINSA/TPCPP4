@@ -41,10 +41,9 @@ const string& File::MyName()const
 }
 
 bool File::AddInbound(const File* origin, const string& ip, const string& webBrowser,const string& timeStamp) {
-
+    ++nbHits;
     auto oldPos = inBound.find(origin->MyName());
     if (oldPos != inBound.end()) {
-        ++nbHits;
         (*oldPos).second->AddRequest(timeStamp, ip, webBrowser);
         return true;
     }

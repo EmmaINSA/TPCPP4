@@ -81,6 +81,14 @@ void Reader::ProcessRequest(RequestData& data)const
     for (int i = 0; i < data.origin.length(); ++i) {
         data.origin[i] = tolower(data.origin[i]);
     }
+
+    
+    if (data.destination.length()>1 && data.destination[data.destination.length() - 1] == '/') {
+        data.destination.erase(data.destination.length() - 1, 1);
+    }
+    if (data.origin.length()>1 && data.origin[data.origin.length() - 1] == '/') {
+        data.origin.erase(data.origin.length() - 1, 1);
+    }
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
