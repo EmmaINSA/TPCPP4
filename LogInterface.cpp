@@ -1,15 +1,15 @@
 /*************************************************************************
                            LogInterface  -  description
                              -------------------
-    début                : $DATE$
+    dï¿½but                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
-//---------- Réalisation de la classe <LogInterface> (fichier LogInterface.cpp) ------------
+//---------- Realisation de la classe <LogInterface> (fichier LogInterface.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systeme
 using namespace std;
 #include <iostream>
 
@@ -21,17 +21,18 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- Méthodes publiques
-// type LogInterface::Méthode ( liste des paramètres )
+//----------------------------------------------------- Mï¿½thodes publiques
+// type LogInterface::Mï¿½thode ( liste des paramï¿½tres )
 // Algorithme :
 //
 //{
-//} //----- Fin de Méthode
+//} //----- Fin de Mï¿½thode
 bool LogInterface::ReadFile()
 {
     cout << "Starting FIle read" << endl;
     RequestData* data;
-    while ((data = myFileReader->GetRequest()) != nullptr) {
+    while ((data = myFileReader->GetRequest()) != nullptr)
+    {
         
         myFileReader->ProcessRequest(*data);
         
@@ -43,21 +44,21 @@ bool LogInterface::ReadFile()
         auto originNamePos = myFiles.find(&data->origin);
         auto targetNamePos = myFiles.find(&data->destination);
 
-        if (originNamePos == myFiles.end()) {
+        if (originNamePos == myFiles.end())
+        {
             string* nString = new string(data->origin);
             rOrigin = new File(nString, "");
             myFiles[nString] = rOrigin;
-        }
-        else {
+        } else {
             rOrigin = originNamePos->second;
         }
 
-        if (targetNamePos == myFiles.end()) {
+        if (targetNamePos == myFiles.end())
+        {
             string* nString = new string(data->destination);
             rTarget = new File(nString, "");
             myFiles[nString] = rTarget;
-        }
-        else {
+        } else {
             rTarget = targetNamePos->second;
         }
        
@@ -71,16 +72,19 @@ bool LogInterface::ReadFile()
 
     multiset<File*,FileHitsCompare> hitsSet;
 
-    for (auto const& x : myFiles) {
+    for (auto const& x : myFiles)
+    {
         File* rX = x.second;
         hitsSet.insert(rX);
     }
 
     int i = 0;
-    for (auto const& x : hitsSet) {
+    for (auto const& x : hitsSet)
+    {
         i++;
         cout << x->MyName() << " " << x->getHits()<<endl;
-        if (i >= 10) {
+        if (i >= 10)
+        {
             break;
         }
     }
@@ -88,7 +92,7 @@ bool LogInterface::ReadFile()
 }
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opï¿½rateurs
 
 
 
@@ -122,5 +126,5 @@ LogInterface::~LogInterface()
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- Mï¿½thodes protï¿½gï¿½es
 

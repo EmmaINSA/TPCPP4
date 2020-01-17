@@ -1,7 +1,7 @@
 /*************************************************************************
                            LogInterface  -  description
                              -------------------
-    début                : $DATE$
+    dï¿½but                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
@@ -10,7 +10,7 @@
 #if ! defined ( LogInterface_H )
 #define LogInterface_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisees
 using namespace std;
 #include <string>
 #include "Reader.h"
@@ -20,19 +20,22 @@ using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-struct StringPointerCompare {
-    bool operator()(const string* l, const string* r)const {
+struct StringPointerCompare
+        {
+    bool operator()(const string* l, const string* r) const
+    {
         return (*l) < (*r);
     }
 };
 
 struct FileHitsCompare {
-    bool operator()(const File* l, const File* r)const {
+    bool operator()(const File* l, const File* r) const
+    {
         return (*l).getHits() > (*r).getHits();
     }
 };
 //------------------------------------------------------------------------
-// Rôle de la classe <LogInterface>
+// Role de la classe <LogInterface>
 //
 //
 //------------------------------------------------------------------------
@@ -42,8 +45,8 @@ class LogInterface
     //----------------------------------------------------------------- PUBLIC
 
 public:
-    //----------------------------------------------------- Méthodes publiques
-        // type Méthode ( liste des paramètres );
+    //----------------------------------------------------- Methodes publiques
+        // type Methode ( liste des parametres );
         // Mode d'emploi :
         //
         // Contrat :
@@ -51,7 +54,7 @@ public:
 
     bool ReadFile();
 
-    //------------------------------------------------- Surcharge d'opérateurs
+    //------------------------------------------------- Surcharge d'operateurs
     LogInterface& operator = (const LogInterface& unLogInterface);
     // Mode d'emploi :
     //
@@ -81,14 +84,14 @@ public:
 //------------------------------------------------------------------ PRIVE
 
 protected:
-    //----------------------------------------------------- Méthodes protégées
+    //----------------------------------------------------- Methodes protegees
 
-    //----------------------------------------------------- Attributs protégés
+    //----------------------------------------------------- Attributs proteges
     Reader* myFileReader;
     map<string*, File*, StringPointerCompare> myFiles;
 };
 
-//-------------------------------- Autres définitions dépendantes de <LogInterface>
+//-------------------------------- Autres definitions dependantes de <LogInterface>
 
 #endif // LogInterface_H
 
