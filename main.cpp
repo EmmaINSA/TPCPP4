@@ -2,7 +2,7 @@
 #include <regex>
 #include <vector>
 
-#include "LogInterface.h"
+#include "Test.h"
 
 #define MAP
 
@@ -11,16 +11,7 @@ using namespace std;
 int main(int argc, char** argv)
 {
 
-
-
-    
-
-    LogInterface log("anonyme.log", "http://intranet-if.insa-lyon.fr");
-
-    log.ReadFile();
-
-   
-    
+    Test::anonymeIntranet();
 
     // file names with spaces and/or weird characters not accepted
     regex logfilenameRegex("[a-zA-Z0-9_.]{1,255}\\.log");
