@@ -11,7 +11,7 @@
 #define FILE_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <set>
+#include <map>
 #include "Link.h"
 using namespace std;
 //------------------------------------------------------------- Constantes
@@ -35,12 +35,13 @@ public:
     //
     // Contrat :
     //
+    int getHits()const;
 
-    const string& myName()const;
+    const string& MyName()const;
 
+    bool AddInbound(const File* origin, const string& ip, const string& webBrowser,const string& timeStamp);
 
 //------------------------------------------------- Surcharge d'opérateurs
-
     bool operator < (const File& unFile) const;
     // Mode d'emploi :
     //
@@ -53,7 +54,7 @@ public:
     // Contrat :
     //
 
-    File & operator = ( const File & unFile );
+    File& operator = (const File& unFile);
     // Mode d'emploi :
     //
     // Contrat :
@@ -67,7 +68,7 @@ public:
     // Contrat :
     //
 
-    File ( );
+    File (const string* myLabel, const string& myType);
     // Mode d'emploi :
     //
     // Contrat :
@@ -85,11 +86,11 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    string label;
+    const string* label;
+    string fileType;
     int myId;
     int nbHits;
-    set<Link> inBound;
-    string* fileType;
+    map<string,Link*> inBound;
 };
 
 //-------------------------------- Autres définitions dépendantes de <File>

@@ -60,11 +60,26 @@ RequestData* Reader::GetRequest() {
 
 void Reader::ProcessRequest(RequestData& data)const
 {
+    stringstream ssd(data.destination);
+    getline(ssd, data.destination, '?');
+
+    stringstream sso(data.origin);
+    getline(sso, data.origin, '?');
+
+
     if (hasInternalDomain) {
         size_t pos = data.origin.find(internalDomain);
         if (pos != string::npos) {
             data.origin.erase(pos, internalDomain.length());
         }
+    }
+
+
+    for (int i = 0; i < data.destination.length(); ++i) {
+        data.destination[i] = tolower(data.destination[i]);
+    }
+    for (int i = 0; i < data.origin.length(); ++i) {
+        data.origin[i] = tolower(data.origin[i]);
     }
 }
 

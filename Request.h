@@ -34,6 +34,7 @@ public:
     // Contrat :
     //
 
+    const string& GetTimeStamp()const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     Request & operator = ( const Request & unRequest );
@@ -62,7 +63,7 @@ public:
     // Contrat :
     //
 
-    Request ( );
+    Request (const string& mTime,const string& mIp,const string& mBrowser);
     // Mode d'emploi :
     //
     // Contrat :

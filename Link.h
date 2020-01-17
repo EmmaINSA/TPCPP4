@@ -12,7 +12,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 class File;
-#include <set>
+#include <list>
 #include <string>
 #include "Request.h"
 //------------------------------------------------------------- Constantes
@@ -36,26 +36,9 @@ public:
     //
     // Contrat :
     //
-
+    bool AddRequest(const string& timeStamp, const string& ip, const string& webBrowser);
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Link & operator = ( const Link & unLink );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-    bool operator == (const Link& unLink)const;
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
-    bool operator < (const Link& unLink)const;
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
 //-------------------------------------------- Constructeurs - destructeur
     Link ( const Link & unLink );
@@ -64,7 +47,7 @@ public:
     // Contrat :
     //
 
-    Link (File* lOrigin,File* lTarget );
+    Link ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -82,10 +65,8 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    set<Request> myRequests;
+    list<Request> myRequests;
     int numOFRequests;
-    File* target;
-    File* origin;
 
 };
 

@@ -14,10 +14,23 @@
 using namespace std;
 #include <string>
 #include "Reader.h"
+#include <set>
+#include <map>
+#include "File.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+struct StringPointerCompare {
+    bool operator()(const string* l, const string* r)const {
+        return (*l) < (*r);
+    }
+};
 
+struct FileHitsCompare {
+    bool operator()(const File* l, const File* r)const {
+        return (*l).getHits() > (*r).getHits();
+    }
+};
 //------------------------------------------------------------------------
 // Rôle de la classe <LogInterface>
 //
@@ -36,6 +49,7 @@ public:
         // Contrat :
         //
 
+    bool ReadFile();
 
     //------------------------------------------------- Surcharge d'opérateurs
     LogInterface& operator = (const LogInterface& unLogInterface);
@@ -52,7 +66,7 @@ public:
     // Contrat :
     //
 
-    LogInterface(string fileName);
+    LogInterface(const string& fileName,const string& domain = "");
     // Mode d'emploi :
     //
     // Contrat :
@@ -71,7 +85,7 @@ protected:
 
     //----------------------------------------------------- Attributs protégés
     Reader* myFileReader;
-
+    map<string*, File*, StringPointerCompare> myFiles;
 };
 
 //-------------------------------- Autres définitions dépendantes de <LogInterface>

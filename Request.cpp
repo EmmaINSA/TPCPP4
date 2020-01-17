@@ -30,12 +30,11 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-Request & Request::operator = ( const Request & unRequest )
-// Algorithme :
-//
+
+const string& Request::GetTimeStamp() const
 {
-    return *this;
-} //----- Fin de operator =
+    return timeStamp;
+}
 
 bool Request::operator==(const Request& unRequest) const
 {
@@ -49,20 +48,23 @@ bool Request::operator<(const Request& unRequest) const
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Request::Request ( const Request & unRequest )
+
+
+
+Request::Request(const Request& unRequest)
+{
+    timeStamp = unRequest.timeStamp;
+    ip = unRequest.ip;
+    webBrowser = unRequest.webBrowser;
+}
+
+Request::Request (const string& mTime,const string& mIp,const string& mBrowser)
 // Algorithme :
 //
 {
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Request>" << endl;
-#endif
-} //----- Fin de Request (constructeur de copie)
-
-
-Request::Request ( )
-// Algorithme :
-//
-{
+    timeStamp = mTime;
+    ip = mIp;
+    webBrowser = mBrowser;
 #ifdef MAP
     cout << "Appel au constructeur de <Request>" << endl;
 #endif

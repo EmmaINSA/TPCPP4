@@ -28,43 +28,33 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
+bool Link::AddRequest(const string& timeStamp, const string& ip, const string& webBrowser)
+{
+    Request newRequest(timeStamp, ip, webBrowser);
+
+   
+    myRequests.push_back(newRequest);
+    ++numOFRequests;
+    return true;
+   
+   
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
-Link& Link::operator = (const Link& unLink)
-// Algorithme :
-//
-{
-    return *this;
-} //----- Fin de operator =
 
-bool Link::operator==(const Link& unLink) const
-{
-    return origin->myName()==unLink.origin->myName();
-}
 
-bool Link::operator<(const Link& unLink) const
-{
-    return origin->myName() < unLink.origin->myName();
-}
+
 
 //-------------------------------------------- Constructeurs - destructeur
-Link::Link(const Link& unLink)
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Link>" << endl;
-#endif
-} //----- Fin de Link (constructeur de copie)
 
 
-Link::Link(File* lOrigin, File* lTarget)
+
+
+Link::Link()
 // Algorithme :
 //
 {
     numOFRequests = 0;
-    origin = lOrigin;
-    target = lTarget;
     
 #ifdef MAP
     cout << "Appel au constructeur de <Link>" << endl;

@@ -29,11 +29,31 @@ using namespace std;
 //} //----- Fin de Méthode
 
 
-const string& File::myName() const
+
+int File::getHits()const
 {
-    return label;
+    return nbHits;
 }
 
+const string& File::MyName()const
+{
+    return *label;
+}
+
+bool File::AddInbound(const File* origin, const string& ip, const string& webBrowser,const string& timeStamp) {
+
+    auto oldPos = inBound.find(origin->MyName());
+    if (oldPos != inBound.end()) {
+        ++nbHits;
+        (*oldPos).second->AddRequest(timeStamp, ip, webBrowser);
+        return true;
+    }
+    Link* newLink = new Link();
+    inBound[origin->MyName()] = newLink;
+    newLink->AddRequest(timeStamp, ip, webBrowser);
+
+    return false;
+}
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -48,29 +68,21 @@ bool File::operator==(const File& unFile) const
     return (label == unFile.label);
 }
 
-File & File::operator = ( const File & unFile )
-// Algorithme :
-//
-{
-    return *this;
-} //----- Fin de operator =
-
-
 //-------------------------------------------- Constructeurs - destructeur
-File::File ( const File & unFile )
+
+
+File::File (const string* myLabel, const string& myType)
 // Algorithme :
 //
 {
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <File>" << endl;
-#endif
-} //----- Fin de File (constructeur de copie)
+    label = myLabel;
+    fileType = myType;
 
+    static int idCounter = 0;
+    myId = idCounter;
+    ++idCounter;
 
-File::File ( )
-// Algorithme :
-//
-{
+    nbHits = 0;
 #ifdef MAP
     cout << "Appel au constructeur de <File>" << endl;
 #endif
@@ -81,6 +93,11 @@ File::~File ( )
 // Algorithme :
 //
 {
+    map<string, Link*>::iterator it;
+
+    for (auto const& x : inBound) {
+        delete x.second;
+    }
 #ifdef MAP
     cout << "Appel au destructeur de <File>" << endl;
 #endif
