@@ -1,6 +1,7 @@
 #include <iostream>
 #include <regex>
 #include <vector>
+#include <iterator>
 
 #include "Test.h"
 
@@ -11,12 +12,14 @@ using namespace std;
 int main(int argc, char** argv)
 {
 
-    Test::anonymeIntranet();
+    // Test::anonymeIntranet();     // not working
 
     // file names with spaces and/or weird characters not accepted
     regex logfilenameRegex("[a-zA-Z0-9_.]{1,255}\\.log");
     string temp;
     vector<string> argvs;
+
+    string eMode("-e");
 
     if (argc < 2) // no argument given
     {
@@ -44,6 +47,20 @@ int main(int argc, char** argv)
             return -1;
         }
 
+        // chech other arguments
+
+        vector<string>::iterator itArg;
+
+        for (itArg = argvs.begin(); itArg != --(argvs.end()); ++itArg)
+        {
+            if (*itArg == eMode)
+            {
+#ifdef MAP
+                cerr << "-e mode activated" << endl;
+#endif
+            }
+        }
     }
 
+    return 0;
 }
