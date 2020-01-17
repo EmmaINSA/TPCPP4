@@ -3,4 +3,4 @@ project(TPCPP4)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(TPCPP4 main.cpp File.cpp File.h Link.cpp Link.h Request.cpp Request.h Reader.cpp Reader.h LogInterface.cpp LogInterface.h)
+add_executable(TPCPP4 main.cpp File.cpp File.h Link.cpp Link.h Request.cpp Request.h Reader.cpp Reader.h LogInterface.cpp LogInterface.h Test.cpp Test.h)

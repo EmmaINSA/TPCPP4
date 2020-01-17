@@ -2,7 +2,7 @@
 #include <regex>
 #include <vector>
 
-#include "Reader.h"
+#include "Test.h"
 
 #define MAP
 
@@ -10,16 +10,8 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    Reader test("anonyme.log","http://intranet-if.insa-lyon.fr");
-    
-    RequestData* data;
 
-    while ((data = test.GetRequest()) !=nullptr) {
-        cout << data->ip << " " << data->timeStamp << " " << data->destination << " " << data->origin << " " << data->browser << endl;
-        delete data;
-    }
-    cout << "fileread\n";
-    
+    testAnonyme();
 
     // file names with spaces and/or weird characters not accepted
     regex logfilenameRegex("[a-zA-Z0-9_.]{1,255}\\.log");

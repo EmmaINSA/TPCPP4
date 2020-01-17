@@ -80,9 +80,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    string timeStamp;
-    string ip;
-    string webBrowser;
+    std::string timeStamp;
+    std::string ip;
+    std::string webBrowser;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Request>
