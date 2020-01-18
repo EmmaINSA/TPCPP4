@@ -103,7 +103,7 @@ int main(int argc, char** argv)
                     }
                 }else{
                     cerr << "Error : no argument provided for -g option." << endl;
-                    cerr << "Please provide a .dot file name for " << endl;
+                    cerr << "Please provide a .dot file name for the output file" << endl;
                 }
             }
         }
