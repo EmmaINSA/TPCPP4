@@ -31,26 +31,45 @@ const int MAXSTREAMSIZE = INT32_MAX;
 //{
 //} //----- Fin de Méthode
 RequestData* Reader::GetRequest() {
-    if (myFile->eof()) {
+    if (readHeadLocation>=myFileString.length()) {
         return nullptr;
     }
+
     RequestData* myData = new RequestData();
-    getline(*myFile, myData->ip,' ');
-    myFile->ignore(MAXSTREAMSIZE,'[');
 
-    getline(*myFile, myData->timeStamp, ']');
-    myFile->ignore(MAXSTREAMSIZE, '"');
+    myData->ip = readSubStrTo(' ');
+    jumpTo('[');
 
-    myFile->ignore(MAXSTREAMSIZE, ' ');
-    getline(*myFile, myData->destination, ' ');
-    myFile->ignore(MAXSTREAMSIZE, '"');
-    myFile->ignore(MAXSTREAMSIZE, '"');
+    myData->timeStamp = readSubStrTo(']');
+    jumpTo('"');
 
-    getline(*myFile, myData->origin, '"');
-    myFile->ignore(MAXSTREAMSIZE, '"');
+    jumpTo(' ');
+    myData->destination = readSubStrTo(' ');
+    jumpTo('"');
+    jumpTo('"');
 
-    getline(*myFile, myData->browser,'"');
-    myFile->ignore(MAXSTREAMSIZE, '\n');
+    myData->origin = readSubStrTo('"');
+    jumpTo('"');
+
+    myData->browser = readSubStrTo('"');
+    jumpTo('\n');
+
+    //getline(*myFile, myData->ip,' ');
+    //myFile->ignore(MAXSTREAMSIZE,'[');
+
+    //getline(*myFile, myData->timeStamp, ']');
+    //myFile->ignore(MAXSTREAMSIZE, '"');
+
+    //myFile->ignore(MAXSTREAMSIZE, ' ');
+    //getline(*myFile, myData->destination, ' ');
+    //myFile->ignore(MAXSTREAMSIZE, '"');
+    //myFile->ignore(MAXSTREAMSIZE, '"');
+
+    //getline(*myFile, myData->origin, '"');
+    //myFile->ignore(MAXSTREAMSIZE, '"');
+
+    //getline(*myFile, myData->browser,'"');
+    //myFile->ignore(MAXSTREAMSIZE, '\n');
     
 
 
@@ -60,11 +79,15 @@ RequestData* Reader::GetRequest() {
 
 void Reader::ProcessRequest(RequestData& data)const
 {
-    stringstream ssd(data.destination);
-    getline(ssd, data.destination, '?');
+    size_t qDel = data.destination.find_first_of('?');
+    if (qDel != string::npos) {
+        data.destination.erase(qDel, data.destination.length());
+    }
 
-    stringstream sso(data.origin);
-    getline(sso, data.origin, '?');
+    qDel = data.origin.find_first_of('?');
+    if (qDel != string::npos) {
+        data.origin.erase(qDel, data.origin.length());
+    }
 
 
     if (hasInternalDomain) {
@@ -93,48 +116,47 @@ void Reader::ProcessRequest(RequestData& data)const
 
 int Reader::GetTime(const string& timeStamp) const
 {
-    stringstream ss(timeStamp);
-    ss.ignore(MAXSTREAMSIZE,':');
-    string resS;
-    getline(ss, resS, ':');
+    size_t startDel = timeStamp.find_first_of(':')+1;
+    size_t endDel = timeStamp.find_first_of(':',startDel);
+
+    string resS = timeStamp.substr(startDel,endDel-startDel);
     stringstream ssRes(resS);
     int res;
     ssRes >> res;
     return res;
 }
 
+const string Reader::GetFileExtension(const string& fileName) const
+{
+    size_t dotPos = fileName.find_last_of('.');
+    if (dotPos == string::npos) {
+        return "";
+    }
+    size_t qPos = fileName.find_first_of('?', dotPos);
+    return fileName.substr(dotPos, qPos - dotPos);
+}
+
 bool Reader::Available() const
 {
-    return myFile!=nullptr;
+    return myFileString!="";
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
-Reader & Reader::operator = ( const Reader & unReader )
-// Algorithme :
-//
-{
-    return *this;
-} //----- Fin de operator =
+
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Reader::Reader ( const Reader & unReader )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Reader>" << endl;
-#endif
-} //----- Fin de Reader (constructeur de copie)
 
 
-Reader::Reader (string fileToRead,string iDomain)
+
+Reader::Reader (const string& fileToRead, const string& iDomain)
 // Algorithme :
 //
 {
     ifstream inFile(fileToRead, ios::binary);
 
     if (inFile) {
+        readHeadLocation = 0;
         internalDomain = iDomain;
         if (internalDomain == "") {
             hasInternalDomain = false;
@@ -144,16 +166,15 @@ Reader::Reader (string fileToRead,string iDomain)
         }
 
 
-        string fileString;
         inFile.seekg(0, std::ios::end);
-        fileString.resize(inFile.tellg());
+        myFileString.resize(inFile.tellg());
         inFile.seekg(0, std::ios::beg);
-        inFile.read(&fileString[0], fileString.size());
+        inFile.read(&myFileString[0], myFileString.size());
         inFile.close();
-        myFile = new stringstream(fileString);
     }
     else {
-        myFile = nullptr;
+        myFileString = "";
+        hasInternalDomain = false;
         cerr << "File does not exist" << endl;
     }
 
@@ -167,10 +188,22 @@ Reader::~Reader ( )
 // Algorithme :
 //
 {
-delete myFile;
 #ifdef MAP
     cout << "Appel au destructeur de <Reader>" << endl;
 #endif
+}
+
+string Reader::readSubStrTo(char del)
+{
+    size_t endDel = myFileString.find_first_of(del, readHeadLocation);
+    size_t startDel = readHeadLocation;
+    readHeadLocation = endDel + 1;
+    return myFileString.substr(startDel, endDel - startDel);
+}
+
+void Reader::jumpTo(char del)
+{
+    readHeadLocation = myFileString.find_first_of(del,readHeadLocation)+1;
 }
 
 

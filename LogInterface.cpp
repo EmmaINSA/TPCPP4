@@ -27,12 +27,21 @@ using namespace std;
 //
 //{
 //} //----- Fin de M�thode
-bool LogInterface::ReadFile(bool removeExtraFiles, const std::string& diagramPath, int startTime, int endTime)
+bool LogInterface::ReadFile(bool removeExtraFiles, int startTime, int endTime)
 {
     if (!myFileReader->Available()) {
         cerr << "Cannot read : FILE DOES NOT EXIST!" << endl;
         return false;
     }
+
+    set<string> extraExtensions;
+    extraExtensions.insert(".png");
+    extraExtensions.insert(".jpg");
+    extraExtensions.insert(".bmp");
+    extraExtensions.insert(".gif");
+    extraExtensions.insert(".css");
+    extraExtensions.insert(".ico");
+    extraExtensions.insert(".js");
 
     bool readRequest;
 
@@ -43,13 +52,21 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const std::string& diagramPat
         readRequest = true;
         string oldS = data->destination;
         
-        if (startTime != endTime) {
+        if (removeExtraFiles) {
+            
+
+            if (extraExtensions.find(myFileReader->GetFileExtension(data->destination))!=extraExtensions.end()) {
+                readRequest = false;
+            }
+        }
+
+        if (readRequest && startTime != endTime) {
             int requestTime = myFileReader->GetTime(data->timeStamp);
-            //cout << requestTime << endl;
             if (requestTime < startTime || requestTime >= endTime) {
                 readRequest = false;
             }
         }
+     
 
 
 

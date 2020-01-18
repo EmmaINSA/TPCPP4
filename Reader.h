@@ -51,6 +51,8 @@ public:
 
     int GetTime(const string& timeStamp)const;
 
+    const string GetFileExtension(const string& fileName)const;
+
     bool Available()const;
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -68,7 +70,7 @@ public:
     // Contrat :
     //
 
-    Reader (string fileToRead,string iDomain = "" );
+    Reader (const string& fileToRead, const string& iDomain = "" );
     // Mode d'emploi :
     //
     // Contrat :
@@ -84,11 +86,13 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
-
+    string readSubStrTo(char del);
+    void jumpTo(char del);
 //----------------------------------------------------- Attributs protégés
-stringstream* myFile;
 string internalDomain;
+string myFileString;
 bool hasInternalDomain;
+size_t readHeadLocation;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Reader>
