@@ -33,7 +33,7 @@ using namespace std;
 
 const string& Request::GetTimeStamp() const
 {
-    return timeStamp;
+    return *timeStamp;
 }
 
 bool Request::operator==(const Request& unRequest) const
@@ -58,7 +58,7 @@ Request::Request(const Request& unRequest)
     webBrowser = unRequest.webBrowser;
 }
 
-Request::Request (const string& mTime,const string& mIp,const string& mBrowser)
+Request::Request (const string* mTime,const string* mIp,const string* mBrowser)
 // Algorithme :
 //
 {

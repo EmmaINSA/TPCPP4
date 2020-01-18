@@ -30,7 +30,7 @@ using namespace std;
 
 
 
-int File::getHits()const
+int File::GetHits()const
 {
     return nbHits;
 }
@@ -40,7 +40,7 @@ const string& File::MyName()const
     return *label;
 }
 
-bool File::AddInbound(const File* origin, const string& ip, const string& webBrowser,const string& timeStamp) {
+bool File::AddInbound(const File* origin, const string* ip, const string* webBrowser,const string* timeStamp) {
     ++nbHits;
     auto oldPos = inBound.find(origin->MyName());
     if (oldPos != inBound.end()) {

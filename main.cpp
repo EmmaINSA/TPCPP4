@@ -12,7 +12,7 @@ using namespace std;
 int main(int argc, char** argv)
 {
 
-    // Test::anonymeIntranet();     // not working
+     Test::anonymeIntranet();
 
     // file names with spaces and/or weird characters not accepted
     regex logfilenameRegex("[a-zA-Z0-9_.]{1,255}\\.log");

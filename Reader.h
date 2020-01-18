@@ -49,6 +49,10 @@ public:
 
     void ProcessRequest(RequestData& data)const;
 
+    int GetTime(const string& timeStamp)const;
+
+    bool Available()const;
+
 //------------------------------------------------- Surcharge d'opérateurs
     Reader & operator = ( const Reader & unReader );
     // Mode d'emploi :

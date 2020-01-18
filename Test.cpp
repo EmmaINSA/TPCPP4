@@ -9,5 +9,5 @@ void Test::anonymeIntranet()
 {
     LogInterface log("anonyme.log", "http://intranet-if.insa-lyon.fr");
 
-    log.ReadFile();
+    log.ReadFile(false,"",0,0);
 }

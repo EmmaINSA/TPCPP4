@@ -91,6 +91,23 @@ void Reader::ProcessRequest(RequestData& data)const
     }
 }
 
+int Reader::GetTime(const string& timeStamp) const
+{
+    stringstream ss(timeStamp);
+    ss.ignore(MAXSTREAMSIZE,':');
+    string resS;
+    getline(ss, resS, ':');
+    stringstream ssRes(resS);
+    int res;
+    ssRes >> res;
+    return res;
+}
+
+bool Reader::Available() const
+{
+    return myFile!=nullptr;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 Reader & Reader::operator = ( const Reader & unReader )
 // Algorithme :
@@ -115,23 +132,30 @@ Reader::Reader (string fileToRead,string iDomain)
 // Algorithme :
 //
 {
-    internalDomain = iDomain;
-    if (internalDomain == "") {
-        hasInternalDomain = false;
+    ifstream inFile(fileToRead, ios::binary);
+
+    if (inFile) {
+        internalDomain = iDomain;
+        if (internalDomain == "") {
+            hasInternalDomain = false;
+        }
+        else {
+            hasInternalDomain = true;
+        }
+
+
+        string fileString;
+        inFile.seekg(0, std::ios::end);
+        fileString.resize(inFile.tellg());
+        inFile.seekg(0, std::ios::beg);
+        inFile.read(&fileString[0], fileString.size());
+        inFile.close();
+        myFile = new stringstream(fileString);
     }
     else {
-        hasInternalDomain = true;
+        myFile = nullptr;
+        cerr << "File does not exist" << endl;
     }
-
-    ifstream inFile(fileToRead,ios::binary);
-    string fileString;
-    inFile.seekg(0, std::ios::end);
-    fileString.resize(inFile.tellg());
-    inFile .seekg(0, std::ios::beg);
-    inFile.read(&fileString[0], fileString.size());
-    inFile.close();
-    myFile = new stringstream(fileString);
-
 
 #ifdef MAP
     cout << "Appel au constructeur de <Reader>" << endl;

@@ -27,67 +27,57 @@ using namespace std;
 //
 //{
 //} //----- Fin de M�thode
-bool LogInterface::ReadFile()
+bool LogInterface::ReadFile(bool removeExtraFiles, const std::string& diagramPath, int startTime, int endTime)
 {
-    cout << "Starting FIle read" << endl;
+    if (!myFileReader->Available()) {
+        cerr << "Cannot read : FILE DOES NOT EXIST!" << endl;
+        return false;
+    }
+
+    bool readRequest;
+
+    std::cout << "Starting FIle read" << endl;
     RequestData* data;
     while ((data = myFileReader->GetRequest()) != nullptr)
     {
+        readRequest = true;
+        string oldS = data->destination;
         
-        myFileReader->ProcessRequest(*data);
-        
-
-        
-        File* rOrigin;
-        File* rTarget;
-
-        auto originNamePos = myFiles.find(&data->origin);
-        auto targetNamePos = myFiles.find(&data->destination);
-
-        if (originNamePos == myFiles.end())
-        {
-            string* nString = new string(data->origin);
-            rOrigin = new File(nString, "");
-            myFiles[nString] = rOrigin;
-        } else {
-            rOrigin = originNamePos->second;
+        if (startTime != endTime) {
+            int requestTime = myFileReader->GetTime(data->timeStamp);
+            //cout << requestTime << endl;
+            if (requestTime < startTime || requestTime >= endTime) {
+                readRequest = false;
+            }
         }
 
-        if (targetNamePos == myFiles.end())
-        {
-            string* nString = new string(data->destination);
-            rTarget = new File(nString, "");
-            myFiles[nString] = rTarget;
-        } else {
-            rTarget = targetNamePos->second;
-        }
-       
 
-        rTarget->AddInbound(rOrigin, data->ip, data->browser, data->timeStamp);
-        
+
+        if (readRequest) {
+            myFileReader->ProcessRequest(*data);
+
+
+            File* rOrigin = addOrGetFile(data->origin);
+
+            File* rTarget = addOrGetFile(data->destination);
+
+            const string* dIp = addOrGetString(data->ip, ipSet);
+            const string* dBrowser = addOrGetString(data->browser, browserSet);
+            const string* dTimeStamp = addOrGetString(data->timeStamp, timeStampSet);
+
+
+            rTarget->AddInbound(rOrigin, dIp, dBrowser, dTimeStamp);
+        }
 
         delete data;
     }
-    cout << "fileread\n";
+    std::cout << "fileread\n";
 
     multiset<File*,FileHitsCompare> hitsSet;
-
-    for (auto const& x : myFiles)
-    {
-        File* rX = x.second;
-        hitsSet.insert(rX);
-    }
-
-    int i = 0;
-    for (auto const& x : hitsSet)
-    {
-        i++;
-        cout << x->MyName() << " " << x->getHits()<<endl;
-        if (i >= 10)
-        {
-            break;
-        }
-    }
+    classByHits(hitsSet);
+    
+    printTop10(hitsSet);
+   
     return true;
 }
 
@@ -118,10 +108,82 @@ LogInterface::~LogInterface()
 //
 {
     delete myFileReader;
+    for (auto const& x : myFiles)
+    {
+        delete x.first;
+        delete x.second;
+    }
+
+    for (auto const& x : ipSet) {
+        delete x;
+    }
+    for (auto const& x : browserSet) {
+        delete x;
+    }
+    for (auto const& x : timeStampSet) {
+        delete x;
+    }
+
 #ifdef MAP
     cout << "Appel au destructeur de <LogInterface>" << endl;
 #endif
 } //----- Fin de ~LogInterface
+
+File* LogInterface::addOrGetFile(const string& fileName)
+{
+    File* rFile;
+    auto fileNamePos = myFiles.find(&fileName);
+
+    if (fileNamePos == myFiles.end())
+    {
+        string* nString = new string(fileName);
+        rFile = new File(nString, "");
+        myFiles[nString] = rFile;
+    }
+    else {
+        rFile = fileNamePos->second;
+    }
+    return rFile;
+}
+
+void LogInterface::classByHits(multiset<File*, FileHitsCompare>& hitsSet)const
+{
+    for (auto const& x : myFiles)
+    {
+        File* rX = x.second;
+        hitsSet.insert(rX);
+    }
+}
+
+void LogInterface::printTop10(multiset<File*, FileHitsCompare>& hitsSet) const
+{
+    int i = 0;
+    for (auto const& x : hitsSet)
+    {
+        i++;
+        cout << x->MyName() << " " << x->GetHits() << endl;
+        if (i >= 10)
+        {
+            break;
+        }
+    }
+}
+
+const std::string* LogInterface::addOrGetString(const string& stringName, set<const std::string*, StringPointerCompare>& theSet) const
+{
+    const string* nString;
+    auto strPos = theSet.find(&stringName);
+
+    if (strPos == theSet.end()) {
+        nString = new string(stringName);
+        theSet.insert(nString);
+    }
+    else {
+        nString = (*strPos);
+    }
+    
+    return nString;
+}
 
 
 //------------------------------------------------------------------ PRIVE

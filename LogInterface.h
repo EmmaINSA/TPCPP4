@@ -11,7 +11,6 @@
 #define LogInterface_H
 
 //--------------------------------------------------- Interfaces utilisees
-using namespace std;
 #include <string>
 #include "Reader.h"
 #include <set>
@@ -22,16 +21,17 @@ using namespace std;
 //------------------------------------------------------------------ Types
 struct StringPointerCompare
         {
-    bool operator()(const string* l, const string* r) const
+    bool operator()(const std::string* l, const std::string* r) const
     {
         return (*l) < (*r);
     }
 };
 
 struct FileHitsCompare {
+
     bool operator()(const File* l, const File* r) const
     {
-        return (*l).getHits() > (*r).getHits();
+        return (*l).GetHits() > (*r).GetHits();
     }
 };
 //------------------------------------------------------------------------
@@ -52,7 +52,7 @@ public:
         // Contrat :
         //
 
-    bool ReadFile();
+    bool ReadFile(bool removeExtraFiles=false, const std::string& diagramPath="", int startTime = 0,int endTime = 0);
 
     //------------------------------------------------- Surcharge d'operateurs
     LogInterface& operator = (const LogInterface& unLogInterface);
@@ -85,10 +85,17 @@ public:
 
 protected:
     //----------------------------------------------------- Methodes protegees
-
+    File* addOrGetFile( const string& fileName);
+    void classByHits(multiset<File*, FileHitsCompare>& hitsSet)const;
+    void printTop10(multiset<File*, FileHitsCompare>& hitsSet)const;
+    const std::string* addOrGetString(const string& stringName, set<const std::string*, StringPointerCompare>& theSet)const;
     //----------------------------------------------------- Attributs proteges
     Reader* myFileReader;
-    map<string*, File*, StringPointerCompare> myFiles;
+    map<const std::string*, File*, StringPointerCompare> myFiles;
+
+    set<const std::string*, StringPointerCompare> ipSet;
+    set<const std::string*, StringPointerCompare> timeStampSet;
+    set<const std::string*, StringPointerCompare> browserSet;
 };
 
 //-------------------------------- Autres definitions dependantes de <LogInterface>

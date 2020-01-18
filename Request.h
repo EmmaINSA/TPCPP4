@@ -63,7 +63,7 @@ public:
     // Contrat :
     //
 
-    Request (const string& mTime,const string& mIp,const string& mBrowser);
+    Request (const string* mTime,const string* mIp,const string* mBrowser);
     // Mode d'emploi :
     //
     // Contrat :
@@ -81,9 +81,9 @@ protected:
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Attributs protégés
-    string timeStamp;
-    string ip;
-    string webBrowser;
+    const string* timeStamp;
+    const string* ip;
+    const string* webBrowser;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Request>

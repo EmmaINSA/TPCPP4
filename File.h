@@ -13,7 +13,6 @@
 //--------------------------------------------------- Interfaces utilisées
 #include <map>
 #include "Link.h"
-using namespace std;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -35,11 +34,11 @@ public:
     //
     // Contrat :
     //
-    int getHits()const;
+    int GetHits()const;
 
     const string& MyName()const;
 
-    bool AddInbound(const File* origin, const string& ip, const string& webBrowser,const string& timeStamp);
+    bool AddInbound(const File* origin, const string* ip, const string* webBrowser,const string* timeStamp);
 
 //------------------------------------------------- Surcharge d'opérateurs
     bool operator < (const File& unFile) const;
@@ -90,7 +89,7 @@ protected:
     string fileType;
     int myId;
     int nbHits;
-    map<string,Link*> inBound;
+    map<std::string,Link*> inBound;
 };
 
 //-------------------------------- Autres définitions dépendantes de <File>

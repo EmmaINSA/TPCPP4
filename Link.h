@@ -36,7 +36,7 @@ public:
     //
     // Contrat :
     //
-    bool AddRequest(const string& timeStamp, const string& ip, const string& webBrowser);
+    bool AddRequest(const string* timeStamp, const string* ip, const string* webBrowser);
 
 //------------------------------------------------- Surcharge d'opérateurs
 
