@@ -52,7 +52,7 @@ public:
         // Contrat :
         //
 
-    bool ReadFile(bool removeExtraFiles=false, const std::string& diagramPath="", int startTime = 0,int endTime = 0);
+    bool ReadFile(bool removeExtraFiles=false, int startTime = 0,int endTime = 0);
 
     //------------------------------------------------- Surcharge d'operateurs
     LogInterface& operator = (const LogInterface& unLogInterface);
