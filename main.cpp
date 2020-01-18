@@ -14,9 +14,15 @@ int main(int argc, char** argv)
     testAnonyme();
 
     // file names with spaces and/or weird characters not accepted
-    regex logfilenameRegex("[a-zA-Z0-9_.]{1,255}\\.log");
+    string filenameRegex("[a-zA-Z0-9_.]{1,255}");
+    regex logfilenameRegex(filenameRegex+ "\\.log");
+    regex dotfilenameRegex(filenameRegex+"\\.dot");
     string temp;
     vector<string> argvs;
+
+    string eMode("-e");
+    string gMode("-g");
+    string tMode("-t");
 
     if (argc < 2) // no argument given
     {
@@ -40,10 +46,30 @@ int main(int argc, char** argv)
             cerr << "Correct file name" << endl;
 #endif
         }else{
-            cerr << "Incorrect file name" << endl;
+            cerr << "Incorrect file name for .log file" << endl;
             return -1;
         }
 
+        // chech other arguments
+
+        vector<string>::iterator itArg;
+
+        for (itArg = argvs.begin(); itArg != --(argvs.end()); ++itArg)
+        {
+            if (*itArg == eMode)
+            {
+#ifdef MAP
+                cerr << "-e mode activated" << endl;
+#endif
+            }
+            else if (*itArg == tMode)
+            {
+                if (itArg < (argvs.end()) - 2) // still space for hour & log file name
+                {
+                    //if
+                }
+            }
+        }
     }
 
 }
