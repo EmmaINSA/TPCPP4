@@ -28,7 +28,7 @@ using namespace std;
 //{
 //} //----- Fin de Méthode
 
-bool Link::AddRequest(const string* timeStamp, const string* ip, const string* webBrowser)
+bool Link::AddRequest(const string*& timeStamp, const string*& ip, const string*& webBrowser)
 {
     Request newRequest(timeStamp, ip, webBrowser);
 

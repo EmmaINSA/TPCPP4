@@ -63,7 +63,7 @@ public:
     // Contrat :
     //
 
-    Request (const string* mTime,const string* mIp,const string* mBrowser);
+    Request (const string*& mTime,const string*& mIp,const string*& mBrowser);
     // Mode d'emploi :
     //
     // Contrat :

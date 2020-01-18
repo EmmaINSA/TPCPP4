@@ -40,7 +40,7 @@ const string& File::MyName()const
     return *label;
 }
 
-bool File::AddInbound(const File* origin, const string* ip, const string* webBrowser,const string* timeStamp) {
+bool File::AddInbound(const File* const & origin, const string*& ip, const string*& webBrowser,const string*& timeStamp) {
     ++nbHits;
     auto oldPos = inBound.find(origin->MyName());
     if (oldPos != inBound.end()) {
@@ -70,12 +70,11 @@ bool File::operator==(const File& unFile) const
 //-------------------------------------------- Constructeurs - destructeur
 
 
-File::File (const string* myLabel, const string& myType)
+File::File (const string* myLabel)
 // Algorithme :
 //
 {
     label = myLabel;
-    fileType = myType;
 
     static int idCounter = 0;
     myId = idCounter;

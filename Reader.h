@@ -87,7 +87,9 @@ public:
 protected:
 //----------------------------------------------------- Méthodes protégées
     string readSubStrTo(char del);
+    string readSubStrTo(int distance);
     void jumpTo(char del);
+    void jumpTo(int distance);
 //----------------------------------------------------- Attributs protégés
 string internalDomain;
 string myFileString;

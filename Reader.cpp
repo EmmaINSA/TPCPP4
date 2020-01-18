@@ -38,10 +38,10 @@ RequestData* Reader::GetRequest() {
     RequestData* myData = new RequestData();
 
     myData->ip = readSubStrTo(' ');
-    jumpTo('[');
+    jumpTo(5);//jump to '['
 
-    myData->timeStamp = readSubStrTo(']');
-    jumpTo('"');
+    myData->timeStamp = readSubStrTo(26); //read until ']'
+    jumpTo(5);//jump to '"'
 
     jumpTo(' ');
     myData->destination = readSubStrTo(' ');
@@ -53,26 +53,6 @@ RequestData* Reader::GetRequest() {
 
     myData->browser = readSubStrTo('"');
     jumpTo('\n');
-
-    //getline(*myFile, myData->ip,' ');
-    //myFile->ignore(MAXSTREAMSIZE,'[');
-
-    //getline(*myFile, myData->timeStamp, ']');
-    //myFile->ignore(MAXSTREAMSIZE, '"');
-
-    //myFile->ignore(MAXSTREAMSIZE, ' ');
-    //getline(*myFile, myData->destination, ' ');
-    //myFile->ignore(MAXSTREAMSIZE, '"');
-    //myFile->ignore(MAXSTREAMSIZE, '"');
-
-    //getline(*myFile, myData->origin, '"');
-    //myFile->ignore(MAXSTREAMSIZE, '"');
-
-    //getline(*myFile, myData->browser,'"');
-    //myFile->ignore(MAXSTREAMSIZE, '\n');
-    
-
-
    
     return myData;
 }
@@ -201,9 +181,22 @@ string Reader::readSubStrTo(char del)
     return myFileString.substr(startDel, endDel - startDel);
 }
 
+string Reader::readSubStrTo(int distance)
+{
+    size_t endDel = readHeadLocation + distance;
+    size_t startDel = readHeadLocation;
+    readHeadLocation = endDel + 1;
+    return myFileString.substr(startDel, distance);
+}
+
 void Reader::jumpTo(char del)
 {
     readHeadLocation = myFileString.find_first_of(del,readHeadLocation)+1;
+}
+
+void Reader::jumpTo(int distance)
+{
+    readHeadLocation += distance;
 }
 
 

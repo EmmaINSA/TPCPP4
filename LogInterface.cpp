@@ -52,12 +52,9 @@ bool LogInterface::ReadFile(bool removeExtraFiles, int startTime, int endTime)
         readRequest = true;
         string oldS = data->destination;
         
-        if (removeExtraFiles) {
-            
 
-            if (extraExtensions.find(myFileReader->GetFileExtension(data->destination))!=extraExtensions.end()) {
-                readRequest = false;
-            }
+        if (removeExtraFiles && extraExtensions.find(myFileReader->GetFileExtension(data->destination))!=extraExtensions.end()) {
+            readRequest = false;
         }
 
         if (readRequest && startTime != endTime) {
@@ -154,7 +151,7 @@ File* LogInterface::addOrGetFile(const string& fileName)
     if (fileNamePos == myFiles.end())
     {
         string* nString = new string(fileName);
-        rFile = new File(nString, "");
+        rFile = new File(nString);
         myFiles[nString] = rFile;
     }
     else {

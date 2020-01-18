@@ -38,7 +38,7 @@ public:
 
     const string& MyName()const;
 
-    bool AddInbound(const File* origin, const string* ip, const string* webBrowser,const string* timeStamp);
+    bool AddInbound(const File* const & origin, const string*& ip, const string*& webBrowser,const string*& timeStamp);
 
 //------------------------------------------------- Surcharge d'opérateurs
     bool operator < (const File& unFile) const;
@@ -67,7 +67,7 @@ public:
     // Contrat :
     //
 
-    File (const string* myLabel, const string& myType);
+    File (const string* myLabel);
     // Mode d'emploi :
     //
     // Contrat :
@@ -86,7 +86,6 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
     const string* label;
-    string fileType;
     int myId;
     int nbHits;
     map<std::string,Link*> inBound;
