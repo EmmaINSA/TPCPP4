@@ -52,8 +52,7 @@ int main(int argc, char** argv)
             return -1;
         }
 
-        // chech other arguments
-
+        // parse other arguments
         vector<string>::iterator itArg;
 
         for (itArg = argvs.begin(); itArg != --(argvs.end()); ++itArg)
@@ -63,8 +62,10 @@ int main(int argc, char** argv)
 #ifdef MAP
                 cerr << "-e mode activated" << endl;
 #endif
+                // ---
+                // update mode here
+                // --
             }
-
 
             // read -t <hour>
             else if (*itArg == tMode)
@@ -76,6 +77,9 @@ int main(int argc, char** argv)
 #ifdef MAP
                         cerr << "Correct hour format" << endl;
 #endif
+                        // ---
+                        // update mode here
+                        // --
                         ++itArg; // do not process next argv since it has already been used for -t
 
                     }else{
@@ -83,7 +87,8 @@ int main(int argc, char** argv)
                     }
                 }else{
 
-                    cerr << "Error : no argument provided for -t option.\r\n Please provide an hour in the hh:mm format." << endl;
+                    cerr << "Error : No argument provided for -t option." << endl;
+                    cerr << "Please provide an hour in the hh:mm format." << endl;
                 }
             }
 
@@ -97,14 +102,19 @@ int main(int argc, char** argv)
 #ifdef MAP
                         cout << "Correct .dot file name" << endl;
 #endif
+                        // ---
+                        // update mode here
+                        // --
                         ++itArg; // do not process next argv since it has already been used for -g
                     }else{
                         cerr << "Error : Incorrect .dot file name" << endl;
                     }
                 }else{
-                    cerr << "Error : no argument provided for -g option." << endl;
+                    cerr << "Error : No argument provided for -g option." << endl;
                     cerr << "Please provide a .dot file name for the output file" << endl;
                 }
+            }else{
+                cerr << "Error : Unrecognized syntax. Please refer to the user manual for help." << endl;
             }
         }
     }
