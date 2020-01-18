@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 
     // file names with spaces and/or weird characters not accepted
     string filenameRegex("[a-zA-Z0-9_.]{1,255}");
-    regex hourRegex("[0-2]?[0-9]{1}[:h]?[0-5][0-9]");
+    regex hourRegex("([0-1]?[0-9]|2[0-3]){1}[:h]?[0-5][0-9]");
     regex logfilenameRegex(filenameRegex+ "\\.log");
     regex dotfilenameRegex(filenameRegex+"\\.dot");
     string temp;
@@ -48,7 +48,7 @@ int main(int argc, char** argv)
             cerr << "Correct .log file name" << endl;
 #endif
         }else{
-            cerr << "Error : Incorrect .log file name" << endl;
+            cerr << "Error : Incorrect .log file name." << endl;
             return -1;
         }
 
@@ -57,6 +57,7 @@ int main(int argc, char** argv)
 
         for (itArg = argvs.begin(); itArg != --(argvs.end()); ++itArg)
         {
+            // read -e
             if (*itArg == eMode)
             {
 #ifdef MAP
@@ -83,12 +84,19 @@ int main(int argc, char** argv)
                         ++itArg; // do not process next argv since it has already been used for -t
 
                     }else{
-                        cerr << "Error : Incorrect hour format" << endl;
+                        cerr << "Error : Incorrect hour format." << endl;
+                        cerr << "Please provide an hour in the hh:mm format." << endl;
+#ifndef MAP
+                        return -1;
+#endif
                     }
                 }else{
 
                     cerr << "Error : No argument provided for -t option." << endl;
                     cerr << "Please provide an hour in the hh:mm format." << endl;
+#ifndef MAP
+                    return -1;
+#endif
                 }
             }
 
@@ -107,14 +115,24 @@ int main(int argc, char** argv)
                         // --
                         ++itArg; // do not process next argv since it has already been used for -g
                     }else{
-                        cerr << "Error : Incorrect .dot file name" << endl;
+                        cerr << "Error : Incorrect .dot file name." << endl;
+#ifndef MAP
+                        return -1;
+#endif
                     }
                 }else{
                     cerr << "Error : No argument provided for -g option." << endl;
-                    cerr << "Please provide a .dot file name for the output file" << endl;
+                    cerr << "Please provide a .dot file name for the output file." << endl;
+#ifndef MAP
+                    return -1;
+#endif
                 }
             }else{
-                cerr << "Error : Unrecognized syntax. Please refer to the user manual for help." << endl;
+                cerr << "Error : Unrecognized syntax : '" << *itArg << "'." << endl;
+                cerr << "Please refer to the user manual for help." << endl;
+#ifndef MAP
+                return -1;
+#endif
             }
         }
     }
