@@ -86,10 +86,10 @@ void Reader::ProcessRequest(RequestData& data)const
     }
 
 
-    for (int i = 0; i < data.destination.length(); ++i) {
+    for (unsigned int i = 0; i < data.destination.length(); ++i) {
         data.destination[i] = tolower(data.destination[i]);
     }
-    for (int i = 0; i < data.origin.length(); ++i) {
+    for (unsigned int i = 0; i < data.origin.length(); ++i) {
         data.origin[i] = tolower(data.origin[i]);
     }
 
