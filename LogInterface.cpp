@@ -1,7 +1,7 @@
 /*************************************************************************
                            LogInterface  -  description
                              -------------------
-    d�but                : $DATE$
+    debut                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
@@ -23,15 +23,16 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- M�thodes publiques
-// type LogInterface::M�thode ( liste des param�tres )
+//----------------------------------------------------- Methodes publiques
+// type LogInterface::Methode ( liste des parametres )
 // Algorithme :
 //
 //{
-//} //----- Fin de M�thode
+//} //----- Fin de Methode
 bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, const string& endTime)
 {
-    if (!myFileReader->Available()) {
+    if (!myFileReader->Available())
+    {
         cerr << "Cannot read : FILE DOES NOT EXIST!" << endl;
         return false;
     }
@@ -53,25 +54,26 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, cons
     {
         readRequest = true;
         string oldS = data->destination;
-        
 
-        if (removeExtraFiles && extraExtensions.find(myFileReader->GetFileExtension(data->destination))!=extraExtensions.end()) {
+        if (removeExtraFiles &&
+        extraExtensions.find(myFileReader->GetFileExtension(data->destination))!=extraExtensions.end())
+        {
             readRequest = false;
         }
 
-        if (readRequest && startTime != endTime) {
+        if (readRequest && startTime != endTime)
+        {
             string requestTime = myFileReader->GetTime(data->timeStamp);
-            if (requestTime < startTime || requestTime >= endTime) {
+            if (requestTime < startTime || requestTime >= endTime)
+            {
                 readRequest = false;
             }
         }
-     
 
 
-
-        if (readRequest) {
+        if (readRequest)
+        {
             myFileReader->ProcessRequest(*data);
-
 
             File* rOrigin = addOrGetFile(data->origin);
 
@@ -80,7 +82,6 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, cons
             const string* dIp = addOrGetString(data->ip, ipSet);
             const string* dBrowser = addOrGetString(data->browser, browserSet);
             const string* dTimeStamp = addOrGetString(data->timeStamp, timeStampSet);
-
 
             rTarget->AddInbound(rOrigin, dIp, dBrowser, dTimeStamp);
         }
@@ -100,19 +101,21 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, cons
 bool LogInterface::DrawGraph(const string& fileLocation)
 {
     ofstream outputFile(fileLocation);
-    if (outputFile) {
-
+    if (outputFile)
+    {
 
         stringstream ss;
-
-
         ss << "digraph {" << endl;
-        for (auto const& x : myFiles) {
+
+        for (auto const& x : myFiles)
+        {
             ss << "node" << x.second->GetID() << " [label=\"" << x.second->MyName() << "\"];" << endl;
         }
 
-        for (auto const& dest : myFiles) {
-            for (auto const& orig : dest.second->GetInbounds()) {
+        for (auto const& dest : myFiles)
+        {
+            for (auto const& orig : dest.second->GetInbounds())
+            {
                 ss << "node" << orig.second->GetOriginFile()->GetID() << " -> node" << dest.second->GetID() << " [label=\"" << orig.second->GetLinkUses() << "\"];" << endl;
             }
         }
@@ -128,15 +131,11 @@ bool LogInterface::DrawGraph(const string& fileLocation)
 }
 
 
-//------------------------------------------------- Surcharge d'op�rateurs
+//------------------------------------------------- Surcharge d'operateurs
 
 
 
 //-------------------------------------------- Constructeurs - destructeur
-
-
-
-
 
 LogInterface::LogInterface(const string& fileName, const string& domain)
 // Algorithme :
@@ -160,13 +159,16 @@ LogInterface::~LogInterface()
         delete x.second;
     }
 
-    for (auto const& x : ipSet) {
+    for (auto const& x : ipSet)
+    {
         delete x;
     }
-    for (auto const& x : browserSet) {
+    for (auto const& x : browserSet)
+    {
         delete x;
     }
-    for (auto const& x : timeStampSet) {
+    for (auto const& x : timeStampSet)
+    {
         delete x;
     }
 
@@ -215,7 +217,8 @@ void LogInterface::printTop10(multiset<File*, FileHitsCompare>& hitsSet) const
     }
 }
 
-const std::string* LogInterface::addOrGetString(const string& stringName, set<const std::string*, StringPointerCompare>& theSet) const
+const std::string* LogInterface::addOrGetString(const string& stringName, set<const std::string*,
+        StringPointerCompare>& theSet) const
 {
     const string* nString;
     auto strPos = theSet.find(&stringName);
@@ -234,5 +237,5 @@ const std::string* LogInterface::addOrGetString(const string& stringName, set<co
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- M�thodes prot�g�es
+//----------------------------------------------------- Methodes protegees
 

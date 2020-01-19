@@ -1,7 +1,7 @@
 /*************************************************************************
                            LogInterface  -  description
                              -------------------
-    d�but                : $DATE$
+    debut                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
@@ -68,7 +68,7 @@ public:
     // Contrat :
     //
 
-    LogInterface(const string& fileName,const string& domain = "");
+    LogInterface(const string& fileName, const string& domain = "");
     // Mode d'emploi :
     //
     // Contrat :
@@ -84,14 +84,18 @@ public:
 
 protected:
     //----------------------------------------------------- Methodes protegees
-    File* addOrGetFile( const string& fileName);
-    void classByHits(multiset<File*, FileHitsCompare>& hitsSet)const;
-    void printTop10(multiset<File*, FileHitsCompare>& hitsSet)const;
-    const std::string* addOrGetString(const string& stringName, set<const std::string*, StringPointerCompare>& theSet)const;
+    File* addOrGetFile(const string& fileName);
+
+    void classByHits(multiset<File*, FileHitsCompare>& hitsSet) const;
+
+    void printTop10(multiset<File*, FileHitsCompare>& hitsSet) const;
+
+    const std::string* addOrGetString(const string& stringName,
+            set<const std::string*, StringPointerCompare>& theSet) const;
+
     //----------------------------------------------------- Attributs proteges
     Reader* myFileReader;
     map<const std::string*, File*, StringPointerCompare> myFiles;
-
     set<const std::string*, StringPointerCompare> ipSet;
     set<const std::string*, StringPointerCompare> timeStampSet;
     set<const std::string*, StringPointerCompare> browserSet;

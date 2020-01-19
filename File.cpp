@@ -30,7 +30,7 @@ using namespace std;
 
 
 
-int File::GetHits()const
+int File::GetHits() const
 {
     return nbHits;
 }
@@ -40,15 +40,18 @@ int File::GetID() const
 	return myId;
 }
 
-const string& File::MyName()const
+const string& File::MyName() const
 {
     return *label;
 }
 
-bool File::AddInbound(const File* const & origin, const string*& ip, const string*& webBrowser,const string*& timeStamp) {
+bool File::AddInbound(const File* const & origin, const string*& ip,
+        const string*& webBrowser, const string*& timeStamp)
+{
     ++nbHits;
     auto oldPos = inBound.find(&origin->MyName());
-    if (oldPos != inBound.end()) {
+    if (oldPos != inBound.end())
+    {
         (*oldPos).second->AddRequest(timeStamp, ip, webBrowser);
         return true;
     }
@@ -59,15 +62,13 @@ bool File::AddInbound(const File* const & origin, const string*& ip, const strin
     return false;
 }
 
-const map<const std::string*, Link*,StringPointerCompare>& File::GetInbounds()const
+const map<const std::string*, Link*,StringPointerCompare>& File::GetInbounds() const
 {
     return inBound;
 }
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-
-
 
 bool File::operator<(const File& unFile) const
 {
@@ -105,7 +106,8 @@ File::~File ( )
 {
     map<string, Link*>::iterator it;
 
-    for (auto const& x : inBound) {
+    for (auto const& x : inBound)
+    {
         delete x.second;
     }
 #ifdef MAP

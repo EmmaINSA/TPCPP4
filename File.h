@@ -40,16 +40,16 @@ public:
     //
     // Contrat :
     //
-    int GetHits()const;
+    int GetHits() const;
 
-    int GetID()const;
+    int GetID() const;
 
-    const string& MyName()const;
+    const string& MyName() const;
 
-    bool AddInbound(const File* const & origin, const string*& ip, const string*& webBrowser,const string*& timeStamp);
+    bool AddInbound(const File* const & origin, const string*& ip, const string*& webBrowser, const string*& timeStamp);
 
 
-    const map<const std::string*, Link*,StringPointerCompare>& GetInbounds()const ;
+    const map<const std::string*, Link*, StringPointerCompare>& GetInbounds() const ;
 //------------------------------------------------- Surcharge d'opérateurs
     bool operator < (const File& unFile) const;
     // Mode d'emploi :
@@ -98,7 +98,7 @@ protected:
     const string* label;
     int myId;
     int nbHits;
-    map<const std::string*,Link*,StringPointerCompare> inBound;
+    map<const std::string*, Link*, StringPointerCompare> inBound;
 };
 
 //-------------------------------- Autres définitions dépendantes de <File>
