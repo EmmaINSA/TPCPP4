@@ -49,7 +49,7 @@ public:
 
     void ProcessRequest(RequestData& data)const;
 
-    int GetTime(const string& timeStamp)const;
+    string GetTime(const string& timeStamp)const;
 
     const string GetFileExtension(const string& fileName)const;
 

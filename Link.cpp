@@ -40,6 +40,16 @@ bool Link::AddRequest(const string*& timeStamp, const string*& ip, const string*
    
 }
 
+const File* Link::GetOriginFile() const
+{
+    return myOriginFile;
+}
+
+int Link::GetLinkUses() const
+{
+    return numOFRequests;
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 
@@ -50,12 +60,12 @@ bool Link::AddRequest(const string*& timeStamp, const string*& ip, const string*
 
 
 
-Link::Link()
+Link::Link(const File* const & origFile)
 // Algorithme :
 //
 {
     numOFRequests = 0;
-    
+    myOriginFile = origFile;
 #ifdef MAP
     cout << "Appel au constructeur de <Link>" << endl;
 #endif

@@ -19,13 +19,7 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-struct StringPointerCompare
-        {
-    bool operator()(const std::string* l, const std::string* r) const
-    {
-        return (*l) < (*r);
-    }
-};
+
 
 struct FileHitsCompare {
 
@@ -34,6 +28,9 @@ struct FileHitsCompare {
         return (*l).GetHits() > (*r).GetHits();
     }
 };
+
+
+
 //------------------------------------------------------------------------
 // Role de la classe <LogInterface>
 //
@@ -52,7 +49,9 @@ public:
         // Contrat :
         //
 
-    bool ReadFile(bool removeExtraFiles=false, int startTime = 0,int endTime = 0);
+    bool ReadFile(bool removeExtraFiles=false, const string& startTime = "",const string& endTime = "");
+
+    bool DrawGraph(const string& fileLocation);
 
     //------------------------------------------------- Surcharge d'operateurs
     LogInterface& operator = (const LogInterface& unLogInterface);

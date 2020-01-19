@@ -68,6 +68,14 @@ void Reader::ProcessRequest(RequestData& data)const
     if (qDel != string::npos) {
         data.origin.erase(qDel, data.origin.length());
     }
+    qDel = data.origin.find_first_of(';');
+    if (qDel != string::npos) {
+        data.origin.erase(qDel, data.origin.length());
+    }
+    qDel = data.destination.find_first_of(';');
+    if (qDel != string::npos) {
+        data.destination.erase(qDel, data.destination.length());
+    }
 
 
     if (hasInternalDomain) {
@@ -94,16 +102,13 @@ void Reader::ProcessRequest(RequestData& data)const
     }
 }
 
-int Reader::GetTime(const string& timeStamp) const
+string Reader::GetTime(const string& timeStamp) const
 {
     size_t startDel = timeStamp.find_first_of(':')+1;
-    size_t endDel = timeStamp.find_first_of(':',startDel);
+    size_t endDel = startDel+5;
 
     string resS = timeStamp.substr(startDel,endDel-startDel);
-    stringstream ssRes(resS);
-    int res;
-    ssRes >> res;
-    return res;
+    return resS;
 }
 
 const string Reader::GetFileExtension(const string& fileName) const
@@ -155,6 +160,7 @@ Reader::Reader (const string& fileToRead, const string& iDomain)
     else {
         myFileString = "";
         hasInternalDomain = false;
+        inFile.close();
         cerr << "File does not exist" << endl;
     }
 

@@ -18,7 +18,6 @@ class File;
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-
 //------------------------------------------------------------------------
 // Rôle de la classe <Link>
 //
@@ -38,6 +37,10 @@ public:
     //
     bool AddRequest(const string*& timeStamp, const string*& ip, const string*& webBrowser);
 
+    const File* GetOriginFile()const;
+
+    int GetLinkUses()const;
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -47,7 +50,7 @@ public:
     // Contrat :
     //
 
-    Link ( );
+    Link (const File* const & origFile);
     // Mode d'emploi :
     //
     // Contrat :
@@ -67,7 +70,7 @@ protected:
 //----------------------------------------------------- Attributs protégés
     list<Request> myRequests;
     int numOFRequests;
-
+    const File* myOriginFile;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Link>

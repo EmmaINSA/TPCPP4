@@ -12,10 +12,12 @@
 //-------------------------------------------------------- Include systeme
 using namespace std;
 #include <iostream>
+#include <fstream>
 
 //------------------------------------------------------ Include personnel
 #include "LogInterface.h"
 #include "File.h"
+
 
 //------------------------------------------------------------- Constantes
 
@@ -27,7 +29,7 @@ using namespace std;
 //
 //{
 //} //----- Fin de M�thode
-bool LogInterface::ReadFile(bool removeExtraFiles, int startTime, int endTime)
+bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, const string& endTime)
 {
     if (!myFileReader->Available()) {
         cerr << "Cannot read : FILE DOES NOT EXIST!" << endl;
@@ -58,7 +60,7 @@ bool LogInterface::ReadFile(bool removeExtraFiles, int startTime, int endTime)
         }
 
         if (readRequest && startTime != endTime) {
-            int requestTime = myFileReader->GetTime(data->timeStamp);
+            string requestTime = myFileReader->GetTime(data->timeStamp);
             if (requestTime < startTime || requestTime >= endTime) {
                 readRequest = false;
             }
@@ -93,6 +95,36 @@ bool LogInterface::ReadFile(bool removeExtraFiles, int startTime, int endTime)
     printTop10(hitsSet);
    
     return true;
+}
+
+bool LogInterface::DrawGraph(const string& fileLocation)
+{
+    ofstream outputFile(fileLocation);
+    if (outputFile) {
+
+
+        stringstream ss;
+
+
+        ss << "digraph {" << endl;
+        for (auto const& x : myFiles) {
+            ss << "node" << x.second->GetID() << " [label=\"" << x.second->MyName() << "\"];" << endl;
+        }
+
+        for (auto const& dest : myFiles) {
+            for (auto const& orig : dest.second->GetInbounds()) {
+                ss << "node" << orig.second->GetOriginFile()->GetID() << " -> node" << dest.second->GetID() << " [label=\"" << orig.second->GetLinkUses() << "\"];" << endl;
+            }
+        }
+        ss << "}";
+
+        outputFile << ss.rdbuf();
+        outputFile.close();
+        return true;
+    }
+    cerr << "Can not write file" << endl;
+    outputFile.close();
+    return false;
 }
 
 

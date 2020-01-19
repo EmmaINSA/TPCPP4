@@ -35,6 +35,11 @@ int File::GetHits()const
     return nbHits;
 }
 
+int File::GetID() const
+{
+	return myId;
+}
+
 const string& File::MyName()const
 {
     return *label;
@@ -42,20 +47,27 @@ const string& File::MyName()const
 
 bool File::AddInbound(const File* const & origin, const string*& ip, const string*& webBrowser,const string*& timeStamp) {
     ++nbHits;
-    auto oldPos = inBound.find(origin->MyName());
+    auto oldPos = inBound.find(&origin->MyName());
     if (oldPos != inBound.end()) {
         (*oldPos).second->AddRequest(timeStamp, ip, webBrowser);
         return true;
     }
-    Link* newLink = new Link();
-    inBound[origin->MyName()] = newLink;
+    Link* newLink = new Link(origin);
+    inBound[&origin->MyName()] = newLink;
     newLink->AddRequest(timeStamp, ip, webBrowser);
 
     return false;
 }
 
+const map<const std::string*, Link*,StringPointerCompare>& File::GetInbounds()const
+{
+    return inBound;
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
+
+
 
 bool File::operator<(const File& unFile) const
 {

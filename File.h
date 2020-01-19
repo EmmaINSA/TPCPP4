@@ -16,7 +16,13 @@
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-
+struct StringPointerCompare
+{
+    bool operator()(const std::string* l, const std::string* r) const
+    {
+        return (*l) < (*r);
+    }
+};
 //------------------------------------------------------------------------
 // Rôle de la classe <File>
 //
@@ -36,10 +42,14 @@ public:
     //
     int GetHits()const;
 
+    int GetID()const;
+
     const string& MyName()const;
 
     bool AddInbound(const File* const & origin, const string*& ip, const string*& webBrowser,const string*& timeStamp);
 
+
+    const map<const std::string*, Link*,StringPointerCompare>& GetInbounds()const ;
 //------------------------------------------------- Surcharge d'opérateurs
     bool operator < (const File& unFile) const;
     // Mode d'emploi :
@@ -88,7 +98,7 @@ protected:
     const string* label;
     int myId;
     int nbHits;
-    map<std::string,Link*> inBound;
+    map<const std::string*,Link*,StringPointerCompare> inBound;
 };
 
 //-------------------------------- Autres définitions dépendantes de <File>
