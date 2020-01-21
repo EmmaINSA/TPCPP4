@@ -50,7 +50,7 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, cons
 
     bool readRequest;
 
-    std::cout << "Starting FIle read" << endl;
+    std::cout << "Starting to read File" << endl;
     RequestData* data;
     while ((data = myFileReader->GetRequest()) != nullptr)
     {
@@ -90,7 +90,7 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, cons
 
         delete data;
     }
-    std::cout << "fileread\n";
+    std::cout << "File has been read\n";
 
     multiset<File*,FileHitsCompare> hitsSet;
     classByHits(hitsSet);
