@@ -1,1 +1,1 @@
-cat 
+./analog -g outputFile.dot -t 13:00 anonyme.log

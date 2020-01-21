@@ -1,1 +1,1 @@
-./exe
+./analog -g outputFile.dot anonyme.log
