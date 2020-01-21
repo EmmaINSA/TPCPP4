@@ -50,7 +50,7 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, cons
 
     bool readRequest;
 
-    std::cout << "Starting to read File" << endl;
+    std::cout << "Starting to read file" << endl;
     RequestData* data;
     while ((data = myFileReader->GetRequest()) != nullptr)
     {
@@ -207,11 +207,12 @@ void LogInterface::classByHits(multiset<File*, FileHitsCompare>& hitsSet) const
 
 void LogInterface::printTop10(multiset<File*, FileHitsCompare>& hitsSet) const
 {
+    cout << endl << "============= TOP 10 MOST VISITED PAGES ===========" << endl;
     int i = 0;
     for (auto const& x : hitsSet)
     {
         i++;
-        cout << x->MyName() << " " << x->GetHits() << endl;
+        cout << x->MyName() << "    (" << x->GetHits() << " hits)" << endl;
         if (i >= 10)
         {
             break;
