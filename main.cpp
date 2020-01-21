@@ -23,6 +23,7 @@ int main(int argc, char** argv)
     string filenameRegex("[a-zA-Z0-9_.]{1,255}");
     regex hourMinRegex("([0-1]?[0-9]|2[0-3]){1}:[0-5][0-9]");
     regex hourRegex("[0-1]?[0-9]|2[0-3]");
+    string h23("23");
     regex logfilenameRegex(filenameRegex+ "\\.log");
     regex dotfilenameRegex(filenameRegex+"\\.dot");
     string temp;
@@ -104,24 +105,27 @@ int main(int argc, char** argv)
 #endif
                     }
 
-                    // end time as a string
-                    endTime = to_string((stoi(beginTime.substr(0,2)) + 1) % 24)
-                              + beginTime.substr(2,3);
-
-                    if (endTime.length() == 4)   // 0 missing at the beginning of the string
+                    if (beginTime.substr(0,2) == h23)
                     {
-                        endTime = "0" + endTime;
+                        endTime = string("24:00");
+                    }else {
+                        // end time as a string
+                        endTime = to_string((stoi(beginTime.substr(0, 2)) + 1) % 24)
+                                  + beginTime.substr(2, 3);
+
+                        if (endTime.length() == 4)   // 0 missing at the beginning of the string
+                        {
+                            endTime = "0" + endTime;
 #ifdef MAP
-                        cerr << "Adding 0 to endTime" << endl;
+                            cerr << "Adding 0 to endTime" << endl;
 #endif
+                        }
                     }
 
 #ifdef MAP
                     cerr << "Begin time : " << beginTime << endl;
                     cerr << "End time : " << endTime << endl;
 #endif
-
-
 
                     ++itArg; // do not process next argv since it has already been used for -t
 
