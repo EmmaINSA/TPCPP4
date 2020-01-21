@@ -14,7 +14,7 @@
 #include <string>
 #include "Reader.h"
 #include <set>
-#include <map>
+#include <unordered_map>
 #include "File.h"
 //------------------------------------------------------------- Constantes
 
@@ -29,7 +29,12 @@ struct FileHitsCompare {
     }
 };
 
-
+struct UFileComp{
+    size_t operator()(const std::string& inKey) const
+    {
+        return std::hash<std::string>()(inKey);
+    }
+};
 
 //------------------------------------------------------------------------
 // Role de la classe <LogInterface>
@@ -95,7 +100,7 @@ protected:
 
     //----------------------------------------------------- Attributs proteges
     Reader* myFileReader;
-    map<const std::string*, File*, StringPointerCompare> myFiles;
+    map<const std::string*, File*,StringPointerCompare> myFiles;
     set<const std::string*, StringPointerCompare> ipSet;
     set<const std::string*, StringPointerCompare> timeStampSet;
     set<const std::string*, StringPointerCompare> browserSet;

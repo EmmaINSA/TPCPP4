@@ -38,6 +38,7 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, cons
     }
 
     set<string> extraExtensions;
+    if(removeExtraFiles){
     extraExtensions.insert(".png");
     extraExtensions.insert(".jpg");
     extraExtensions.insert(".bmp");
@@ -45,6 +46,7 @@ bool LogInterface::ReadFile(bool removeExtraFiles, const string& startTime, cons
     extraExtensions.insert(".css");
     extraExtensions.insert(".ico");
     extraExtensions.insert(".js");
+    }
 
     bool readRequest;
 

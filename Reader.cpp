@@ -20,8 +20,8 @@ using namespace std;
 
 //------------------------------------------------------------- Constantes
 const int MAXSTREAMSIZE = INT32_MAX;
-
-
+const int FIRSTJUMP = 5;
+const int SECONDJUMP = 26;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
@@ -38,10 +38,10 @@ RequestData* Reader::GetRequest() {
     RequestData* myData = new RequestData();
 
     myData->ip = readSubStrTo(' ');
-    jumpTo(5);//jump to '['
+    jumpTo(FIRSTJUMP);//jump to '['
 
-    myData->timeStamp = readSubStrTo(26); //read until ']'
-    jumpTo(5);//jump to '"'
+    myData->timeStamp = readSubStrTo(SECONDJUMP); //read until ']'
+    jumpTo(FIRSTJUMP);//jump to '"'
 
     jumpTo(' ');
     myData->destination = readSubStrTo(' ');
