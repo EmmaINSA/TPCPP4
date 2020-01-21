@@ -146,7 +146,7 @@ int main(int argc, char** argv)
 #ifdef MAP
                     cout << "Correct .dot file name" << endl;
 #endif
-                    dotFile = *(itArg);
+                    dotFile = *(itArg+1);
                     modes[gmode] = true;
 
                     ++itArg; // do not process next argv since it has already been used for -g

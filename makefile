@@ -2,7 +2,7 @@
 # utiliser la commande make all pour créer l'exécutable du projet
 
 # mettre DEBUG à la valeur yes pour créer l'exécutable en mode debug
-DEBUG=yes
+DEBUG=no
 ifeq ($(DEBUG),yes)
 	CFLAGS=-Wall -Werror -ansi -pedantic -std=c++11 -g -D MAP
 	LDFLAGS=
