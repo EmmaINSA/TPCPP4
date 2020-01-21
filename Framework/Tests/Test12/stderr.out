@@ -1,0 +1,2 @@
+Error : Incorrect hour format.
+Please provide an hour as an integer between 0 and 23 or in the hh:mm format.
