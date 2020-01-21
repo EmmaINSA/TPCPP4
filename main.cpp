@@ -5,7 +5,7 @@
 
 #include "Test.h"
 
-#define MAP
+//#define MAP
 
 using namespace std;
 
@@ -21,7 +21,8 @@ int main(int argc, char** argv)
 
     // file names with spaces and/or weird characters not accepted
     string filenameRegex("[a-zA-Z0-9_.]{1,255}");
-    regex hourRegex("([0-1]?[0-9]|2[0-3]){1}:[0-5][0-9]");
+    regex hourMinRegex("([0-1]?[0-9]|2[0-3]){1}:[0-5][0-9]");
+    regex hourRegex("[0-1]?[0-9]|2[0-3]");
     regex logfilenameRegex(filenameRegex+ "\\.log");
     regex dotfilenameRegex(filenameRegex+"\\.dot");
     string temp;
@@ -82,13 +83,18 @@ int main(int argc, char** argv)
         {
             if (itArg < (argvs.end()) - 2) // still space for hour & log file name
             {
-                if(regex_match(*(itArg+1), hourRegex))  // correct hour format
+                if(regex_match(*(itArg+1), hourMinRegex) || regex_match(*(itArg+1), hourRegex))  // correct hour format
                 {
 #ifdef MAP
                     cerr << "Correct hour format" << endl;
 #endif
                     modes[tmode] = true;
                     beginTime = *(itArg+1);
+
+                    if (beginTime.length() < 3)     // hour only
+                    {
+                        beginTime += ":00";
+                    }
 
                     if (beginTime.length() == 4)   // 0 missing at the beginning of the string
                     {
@@ -100,7 +106,7 @@ int main(int argc, char** argv)
 
                     // end time as a string
                     endTime = to_string((stoi(beginTime.substr(0,2)) + 1) % 24)
-                            + beginTime.substr(2,3);
+                              + beginTime.substr(2,3);
 
                     if (endTime.length() == 4)   // 0 missing at the beginning of the string
                     {
@@ -121,7 +127,7 @@ int main(int argc, char** argv)
 
                 }else{
                     cerr << "Error : Incorrect hour format." << endl;
-                    cerr << "Please provide an hour in the hh:mm format." << endl;
+                    cerr << "Please provide an hour as an integer between 0 and 23 or in the hh:mm format." << endl;
 #ifndef MAP
                     return -1;
 #endif
@@ -129,14 +135,14 @@ int main(int argc, char** argv)
             }else{
 
                 cerr << "Error : No argument provided for -t option." << endl;
-                cerr << "Please provide an hour in the hh:mm format." << endl;
+                cerr << "Please provide an hour as an integer between 0 and 23 or in the hh:mm format." << endl;
 #ifndef MAP
                 return -1;
 #endif
             }
         }
 
-        // read -g <filename.dot>
+            // read -g <filename.dot>
         else if (*itArg == gMode)
         {
             if (itArg < (argvs.end()) - 2) // still space for dot & log file names
@@ -146,7 +152,7 @@ int main(int argc, char** argv)
 #ifdef MAP
                     cout << "Correct .dot file name" << endl;
 #endif
-                    dotFile = *(itArg+1);
+                    dotFile = *(itArg + 1);
                     modes[gmode] = true;
 
                     ++itArg; // do not process next argv since it has already been used for -g
