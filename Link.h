@@ -37,9 +37,9 @@ public:
     //
     bool AddRequest(const string*& timeStamp, const string*& ip, const string*& webBrowser);
 
-    const File* GetOriginFile()const;
+    const File* GetOriginFile() const;
 
-    int GetLinkUses()const;
+    int GetLinkUses() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
 
