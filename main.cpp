@@ -15,6 +15,53 @@ int main(int argc, char** argv)
     //Test::anonymeIntranet();
 
     string domain("http://intranet-if.insa-lyon.fr");
+    string manual("ANALOG\t\t\t\tApache log analysis\t\t\t\t\tANALOG\n"
+                  "\n"
+                  "NAME\n"
+                  "\tanalog - an analysis tool for Apache logs\n"
+                  "\n"
+                  "SYNOPSIS\n"
+                  "\t./analog [-e] [-g dotfile] [-t hour] logfile\n"
+                  "\t./analog\n"
+                  "\t\t\n"
+                  "DESCRIPTION\n"
+                  "\tanalog is a tool for analysing Apache logs by reading .log files. As long as the .log file name is provided, it displays the 10 most visited pages according to the logs.\n"
+                  "\tIt is possible to narrow down the result to an interval of one hour, and also to exclude images, CSS and JS files from this process.\n"
+                  "\tIt can also create a .dot file containing the graph from the analysis previously ran according to the other options.\n"
+                  "\t\n"
+                  "EXAMPLES\n"
+                  "\t./analog\n"
+                  "\t\tDisplays the user manual (what you are reading right now)\n"
+                  "\t\n"
+                  "\t./analog file.log\n"
+                  "\t\tDisplays the ten most visited pages according to the logs in the given file, if existing.\n"
+                  "\t\n"
+                  "\t./analog -e file.log\n"
+                  "\t\tDisplays the ten most visited pages that are not images, CSS or JS files, according to the logs in the given file, if existing.\n"
+                  "\t\t\n"
+                  "\t./analog -t 13\n"
+                  "\t\tDisplays the ten most visited pages between 13:00 (included) and 14:00 (excluded) according to the logs in the given file, if existing.\n"
+                  "\t\n"
+                  "\t./analog -t 13:45\n"
+                  "\t\tDisplays the ten most visited pages between 13:45 (included) and 14:45 (excluded) according to the logs in the given file, if existing.\n"
+                  "\t\t\n"
+                  "\t./analog -g graph.dot file.log\n"
+                  "\t\tDisplays the ten most visited pages that are not images, CSS or JS files, according to the logs in the given file, if existing. Then creates the graph.dot file containing the graph that the application previously created.\n"
+                  "\t\t\n"
+                  "OPTIONS\n"
+                  "\tDuplicated options are not harmful as long as they are correctly written. If they require an argument, each occurrence will override the previous one.\n"
+                  "\t\n"
+                  "\t-e\n"
+                  "\t\tExclude images, CSS and JS files from processing.\n"
+                  "\t\t\n"
+                  "\t-t hour\n"
+                  "\t\tTake into account only hits that are between hour (included) and hour+1 (excluded). Format for hour can be either an integer between 0 and 23 included, or written as hh:mm between 00:00 and 23:59 (the first digit can be omitted if 0). In this case too, only hits that happened between this time and an hour after will be taken into account. However, if this time is more than 23:00, only hits until 23:59 included will be taken into account.\n"
+                  "\t\t\n"
+                  "\t-g file\n"
+                  "\t\tGenerates a .dot file bearing the given file name according to the data processed by the application. This only takes into account hits that were not excluded by other options. If a file with the same name as the one given already exists, it will be overwritten.\n"
+                  "\t\t\n"
+                  "\t\t\t\n"
+                  "1.0\t\t\t\t\t\t2020-01-21\t\t\t\t\tANALOG");
 
     enum {emode, gmode, tmode};
     bool modes[3] = {false, false, false};
@@ -38,9 +85,7 @@ int main(int argc, char** argv)
 
     if (argc < 2) // no argument given, print user manual
     {
-#ifdef MAP
-        cerr << "man-like user manual : not written yet" << endl;
-#endif
+        cout << manual << endl;
         return 0;
     }
 
