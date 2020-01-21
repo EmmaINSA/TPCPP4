@@ -181,9 +181,15 @@ int main(int argc, char** argv)
     // read log file & create associated structures according to execution parameters
     LogInterface log(logFile, domain);
 
+    if (modes[emode])
+    {
+        cout << "Images, CSS and JS files ignored" << endl;
+    }
+
     // search between given t and t+1 excluded
     if (modes[tmode])
     {
+        cout << "Hits between " << beginTime << " and " << endTime << " taken into account" << endl;
         log.ReadFile(modes[emode], beginTime, endTime);
     }else{
         log.ReadFile(modes[emode]);
@@ -192,6 +198,7 @@ int main(int argc, char** argv)
     if (modes[gmode])
     {
         log.DrawGraph(dotFile);
+        cout << endl << "Dot file " << dotFile << " successfully generated" << endl;
     }
 
     return 0;
