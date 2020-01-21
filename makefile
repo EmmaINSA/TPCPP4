@@ -11,7 +11,7 @@ else
 	LDFLAGS=
 endif
 CC = g++
-EXEC = TP4
+EXEC = analog
 SRC= main.cpp File.cpp Link.cpp Request.cpp Reader.cpp LogInterface.cpp Test.cpp
 OBJ= $(SRC:.cpp=.o)
 HEDR = $(SRC:.cpp=.h)
