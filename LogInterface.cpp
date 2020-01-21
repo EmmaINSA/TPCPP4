@@ -141,7 +141,7 @@ LogInterface::LogInterface(const string& fileName, const string& domain)
 // Algorithme :
 //
 {
-    myFileReader = new Reader(fileName,domain);
+    myFileReader = new Reader(fileName, domain);
 #ifdef MAP
     cout << "Appel au constructeur de <LogInterface>" << endl;
 #endif
@@ -194,7 +194,7 @@ File* LogInterface::addOrGetFile(const string& fileName)
     return rFile;
 }
 
-void LogInterface::classByHits(multiset<File*, FileHitsCompare>& hitsSet)const
+void LogInterface::classByHits(multiset<File*, FileHitsCompare>& hitsSet) const
 {
     for (auto const& x : myFiles)
     {

@@ -34,7 +34,7 @@ public:
     // Contrat :
     //
 
-    const string& GetTimeStamp()const;
+    const string& GetTimeStamp() const;
 
 //------------------------------------------------- Surcharge d'opérateurs
     Request & operator = ( const Request & unRequest );
@@ -43,13 +43,13 @@ public:
     // Contrat :
     //
 
-    bool operator == (const Request& unRequest)const;
+    bool operator == (const Request& unRequest) const;
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    bool operator < (const Request& unRequest)const;
+    bool operator < (const Request& unRequest) const;
     // Mode d'emploi :
     //
     // Contrat :
@@ -63,7 +63,7 @@ public:
     // Contrat :
     //
 
-    Request (const string*& mTime,const string*& mIp,const string*& mBrowser);
+    Request (const string*& mTime, const string*& mIp, const string*& mBrowser);
     // Mode d'emploi :
     //
     // Contrat :

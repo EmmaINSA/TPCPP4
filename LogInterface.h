@@ -49,7 +49,7 @@ public:
         // Contrat :
         //
 
-    bool ReadFile(bool removeExtraFiles=false, const string& startTime = "",const string& endTime = "");
+    bool ReadFile(bool removeExtraFiles = false, const string& startTime = "", const string& endTime = "");
 
     bool DrawGraph(const string& fileLocation);
 
