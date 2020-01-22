@@ -144,7 +144,7 @@ int main(int argc, char** argv)
 
                     if (beginTime.length() == 4)   // 0 missing at the beginning of the string
                     {
-                        beginTime = "0" + beginTime;
+                        beginTime = string("0").append(endTime);
 #ifdef MAP
                         cerr << "Adding 0 to beginTime" << endl;
 #endif
@@ -160,7 +160,7 @@ int main(int argc, char** argv)
 
                         if (endTime.length() == 4)   // 0 missing at the beginning of the string
                         {
-                            endTime = "0" + endTime;
+                            endTime = string("0").append(endTime);
 #ifdef MAP
                             cerr << "Adding 0 to endTime" << endl;
 #endif
