@@ -30,8 +30,10 @@ const int SECONDJUMP = 26;
 //
 //{
 //} //----- Fin de Méthode
-RequestData* Reader::GetRequest() {
-    if (readHeadLocation>=myFileString.length()) {
+RequestData* Reader::GetRequest()
+{
+    if (readHeadLocation>=myFileString.length())
+    {
         return nullptr;
     }
 
@@ -60,44 +62,54 @@ RequestData* Reader::GetRequest() {
 void Reader::ProcessRequest(RequestData& data)const
 {
     size_t qDel = data.destination.find_first_of('?');
-    if (qDel != string::npos) {
+    if (qDel != string::npos)
+    {
         data.destination.erase(qDel, data.destination.length());
     }
 
     qDel = data.origin.find_first_of('?');
-    if (qDel != string::npos) {
+    if (qDel != string::npos)
+    {
         data.origin.erase(qDel, data.origin.length());
     }
     qDel = data.origin.find_first_of(';');
-    if (qDel != string::npos) {
+    if (qDel != string::npos)
+    {
         data.origin.erase(qDel, data.origin.length());
     }
     qDel = data.destination.find_first_of(';');
-    if (qDel != string::npos) {
+    if (qDel != string::npos)
+    {
         data.destination.erase(qDel, data.destination.length());
     }
 
 
-    if (hasInternalDomain) {
+    if (hasInternalDomain)
+    {
         size_t pos = data.origin.find(internalDomain);
-        if (pos != string::npos) {
+        if (pos != string::npos)
+        {
             data.origin.erase(pos, internalDomain.length());
         }
     }
 
 
-    for (unsigned int i = 0; i < data.destination.length(); ++i) {
+    for (unsigned int i = 0; i < data.destination.length(); ++i)
+    {
         data.destination[i] = tolower(data.destination[i]);
     }
-    for (unsigned int i = 0; i < data.origin.length(); ++i) {
+    for (unsigned int i = 0; i < data.origin.length(); ++i)
+    {
         data.origin[i] = tolower(data.origin[i]);
     }
 
     
-    if (data.destination.length()>1 && data.destination[data.destination.length() - 1] == '/') {
+    if (data.destination.length()>1 && data.destination[data.destination.length() - 1] == '/')
+    {
         data.destination.erase(data.destination.length() - 1, 1);
     }
-    if (data.origin.length()>1 && data.origin[data.origin.length() - 1] == '/') {
+    if (data.origin.length()>1 && data.origin[data.origin.length() - 1] == '/')
+    {
         data.origin.erase(data.origin.length() - 1, 1);
     }
 }
@@ -114,7 +126,8 @@ string Reader::GetTime(const string& timeStamp) const
 const string Reader::GetFileExtension(const string& fileName) const
 {
     size_t dotPos = fileName.find_last_of('.');
-    if (dotPos == string::npos) {
+    if (dotPos == string::npos)
+    {
         return "";
     }
     size_t qPos = fileName.find_first_of('?', dotPos);
@@ -140,10 +153,12 @@ Reader::Reader (const string& fileToRead, const string& iDomain)
 {
     ifstream inFile(fileToRead, ios::binary);
 
-    if (inFile) {
+    if (inFile)
+    {
         readHeadLocation = 0;
         internalDomain = iDomain;
-        if (internalDomain == "") {
+        if (internalDomain == "")
+        {
             hasInternalDomain = false;
         }
         else {

@@ -1,16 +1,16 @@
 /*************************************************************************
                            Link  -  description
                              -------------------
-    d�but                : $DATE$
+    debut                : $DATE$
     copyright            : (C) $YEAR$ par $AUTHOR$
     e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- R�alisation de la classe <Link> (fichier Link.cpp) ------------
+//---------- Realisation de la classe <Link> (fichier Link.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include syst�me
+//-------------------------------------------------------- Include systeme
 using namespace std;
 #include <iostream>
 
@@ -21,12 +21,12 @@ using namespace std;
 
 //----------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- M�thodes publiques
-// type Link::M�thode ( liste des param�tres )
+//----------------------------------------------------- Methodes publiques
+// type Link::Methode ( liste des parametres )
 // Algorithme :
 //
 //{
-//} //----- Fin de M�thode
+//} //----- Fin de Methode
 
 bool Link::AddRequest(const string*& timeStamp, const string*& ip, const string*& webBrowser)
 {
@@ -50,7 +50,7 @@ int Link::GetLinkUses() const
     return numOFRequests;
 }
 
-//------------------------------------------------- Surcharge d'op�rateurs
+//------------------------------------------------- Surcharge d'operateurs
 
 
 
@@ -84,7 +84,7 @@ Link::~Link()
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- M�thodes prot�g�es
+//----------------------------------------------------- Methodes protegees
 
 
 

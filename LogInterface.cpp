@@ -118,7 +118,8 @@ bool LogInterface::DrawGraph(const string& fileLocation)
         {
             for (auto const& orig : dest.second->GetInbounds())
             {
-                ss << "node" << orig.second->GetOriginFile()->GetID() << " -> node" << dest.second->GetID() << " [label=\"" << orig.second->GetLinkUses() << "\"];" << endl;
+                ss << "node" << orig.second->GetOriginFile()->GetID() << " -> node" << dest.second->GetID();
+                ss << " [label=\"" << orig.second->GetLinkUses() << "\"];" << endl;
             }
         }
         ss << "}";
@@ -226,7 +227,8 @@ const std::string* LogInterface::addOrGetString(const string& stringName, set<co
     const string* nString;
     auto strPos = theSet.find(&stringName);
 
-    if (strPos == theSet.end()) {
+    if (strPos == theSet.end())
+    {
         nString = new string(stringName);
         theSet.insert(nString);
     }
