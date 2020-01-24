@@ -1,0 +1,191 @@
+-----------------------------------------------------------
+| Test id : Test1
+-----------------------------------------------------------
+Description :
+This test allows the verification of the generation of the 
+top10 most visited websites in anonyme.log
+-----------------------------------------------------------
+../analog anonyme.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test10
+-----------------------------------------------------------
+Description :
+This test allows the verification of the correct execution 
+of the application when an hour that is more than 23:00 is 
+given.
+-----------------------------------------------------------
+../analog -t 23:15 anonyme.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test11
+-----------------------------------------------------------
+Description :
+This test allows the verification of the correct execution 
+of the application when the given dot file name is 
+incorrect.-----------------------------------------------------------
+../analog -g notgood anonyme.log 2>temperr.txt
+                                       Return Code : FAILED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test12
+-----------------------------------------------------------
+Description :
+This test allows the verification of the correct execution 
+of the application when the given hour exceeds maximum-----------------------------------------------------------
+../analog -t 26 anonyme.log 2>temperr.txt
+                                       Return Code : FAILED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test13
+-----------------------------------------------------------
+Description :
+This test allows the verification of the correct execution 
+of the application when a necessary parameter for an option 
+is not given.-----------------------------------------------------------
+../analog -g anonyme.log 2>temperr.txt
+                                       Return Code : FAILED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : FAILED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test2
+-----------------------------------------------------------
+Description :
+This test allows the verification that the program will 
+tell the user if it can't read the file
+-----------------------------------------------------------
+../analog anonyme.log 2>temperr.txt
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test3
+-----------------------------------------------------------
+Description :
+This test allows the verification of the generation of an 
+outputfile
+-----------------------------------------------------------
+../analog -g outputFile.dot anonyme.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test4
+-----------------------------------------------------------
+Description :
+Test for no parameters
+-----------------------------------------------------------
+../analog >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test5
+-----------------------------------------------------------
+Description :
+This test checks the reading of a file between certain hours
+-----------------------------------------------------------
+../analog -g outputFile.dot -t 13:00 anonyme.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test6
+-----------------------------------------------------------
+Description :
+This test allows the verification of the generation of an 
+outputfile with a singular request in the log
+-----------------------------------------------------------
+../analog -g outputFile.dot anonyme.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test7
+-----------------------------------------------------------
+Description :
+This test allows the verification of the generation of an 
+outputfile with no requests in the log
+-----------------------------------------------------------
+../analog -g outputFile.dot anonyme.log 2>temperr.txt
+
+Dot file outputFile.dot successfully generated
+                                       Return Code : PASSED
+                                       Stderr      : PASSED
+                                       File #1     : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test8
+-----------------------------------------------------------
+Description :
+This test allows the verification of the parameter -e 
+(removes images and other side files)
+-----------------------------------------------------------
+../analog -e anonyme.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+| Test id : Test9
+-----------------------------------------------------------
+Description :
+This test allows the verification of the parameter -e 
+(removes images and other side files)
+-----------------------------------------------------------
+../analog -e anonyme.log >temp.txt
+                                       Return Code : PASSED
+                                       Stdout      : PASSED
+                                       --------------------
+                                       Global      : PASSED
+-----------------------------------------------------------
+
+Passed tests     : 10
+Failed tests     : 3
+Misformed tests  : 0
+-----------------------
+Total            : 13
