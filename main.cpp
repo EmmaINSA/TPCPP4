@@ -66,8 +66,8 @@ int main(int argc, char** argv)
     enum {emode, gmode, tmode};
     bool modes[3] = {false, false, false};
 
-    // file names with spaces and/or weird characters not accepted
-    string filenameRegex("[a-zA-Z0-9_.]{1,255}");
+    // file names with spaces and/or weird characters not accepted, but file paths are accepted
+    string filenameRegex("[a-zA-Z0-9_./]{1,255}");
     regex hourMinRegex("([0-1]?[0-9]|2[0-3]){1}:[0-5][0-9]");
     regex hourRegex("[0-1]?[0-9]|2[0-3]");
     string h23("23");
@@ -107,7 +107,9 @@ int main(int argc, char** argv)
         logFile = argvs[argc - 2];
     }else{
         cerr << "Error : Incorrect .log file name." << endl;
-        return -1;
+#ifndef MAP
+        return 1;
+#endif
     }
 
     // parse other arguments for options
@@ -178,7 +180,7 @@ int main(int argc, char** argv)
                     cerr << "Error : Incorrect hour format." << endl;
                     cerr << "Please provide an hour as an integer between 0 and 23 or in the hh:mm format." << endl;
 #ifndef MAP
-                    return -1;
+                    return 1;
 #endif
                 }
             }else{
@@ -186,7 +188,7 @@ int main(int argc, char** argv)
                 cerr << "Error : No argument provided for -t option." << endl;
                 cerr << "Please provide an hour as an integer between 0 and 23 or in the hh:mm format." << endl;
 #ifndef MAP
-                return -1;
+                return 1;
 #endif
             }
         }
@@ -208,21 +210,21 @@ int main(int argc, char** argv)
                 }else{
                     cerr << "Error : Incorrect .dot file name." << endl;
 #ifndef MAP
-                    return -1;
+                    return 1;
 #endif
                 }
             }else{
                 cerr << "Error : No argument provided for -g option." << endl;
                 cerr << "Please provide a .dot file name for the output file." << endl;
 #ifndef MAP
-                return -1;
+                return 1;
 #endif
             }
         }else{
             cerr << "Error : Unrecognized syntax : '" << *itArg << "'." << endl;
             cerr << "Please refer to the user manual for help." << endl;
 #ifndef MAP
-            return -1;
+            return 1;
 #endif
         }
     }
