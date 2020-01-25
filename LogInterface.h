@@ -12,9 +12,9 @@
 
 //--------------------------------------------------- Interfaces utilisees
 #include <string>
-#include "Reader.h"
 #include <set>
 #include <unordered_map>
+#include "Reader.h"
 #include "File.h"
 //------------------------------------------------------------- Constantes
 
