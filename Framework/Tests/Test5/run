@@ -1,1 +1,1 @@
-../analog -g outputFile.dot -t 13:00 ../../../temp/anonyme.log
+../../bin/analog -g outputFile.dot -t 13:00 ../../temp/anonyme.log

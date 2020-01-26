@@ -1,1 +1,1 @@
-../analog -g anonyme2.log
+../../bin/analog -g anonyme2.log

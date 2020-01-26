@@ -1,1 +1,1 @@
-../analog -g outputFile.dot ../../../temp/anonyme.log
+../../bin/analog -g outputFile.dot ../../temp/anonyme.log
