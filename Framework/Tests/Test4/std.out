@@ -1,0 +1,48 @@
+ANALOG				Apache log analysis					ANALOG
+
+NAME
+	analog - an analysis tool for Apache logs
+
+SYNOPSIS
+	./analog [-e] [-g dotfile] [-t hour] logfile
+	./analog
+		
+DESCRIPTION
+	analog is a tool for analysing Apache logs by reading .log files. As long as the .log file name is provided, it displays the 10 most visited pages according to the logs.
+	It is possible to narrow down the result to an interval of one hour, and also to exclude images, CSS and JS files from this process.
+	It can also create a .dot file containing the graph from the analysis previously ran according to the other options.
+	
+EXAMPLES
+	./analog
+		Displays the user manual (what you are reading right now)
+	
+	./analog file.log
+		Displays the ten most visited pages according to the logs in the given file, if existing.
+	
+	./analog -e file.log
+		Displays the ten most visited pages that are not images, CSS or JS files, according to the logs in the given file, if existing.
+		
+	./analog -t 13
+		Displays the ten most visited pages between 13:00 (included) and 14:00 (excluded) according to the logs in the given file, if existing.
+	
+	./analog -t 13:45
+		Displays the ten most visited pages between 13:45 (included) and 14:45 (excluded) according to the logs in the given file, if existing.
+		
+	./analog -g graph.dot file.log
+		Displays the ten most visited pages that are not images, CSS or JS files, according to the logs in the given file, if existing. Then creates the graph.dot file containing the graph that the application previously created.
+		
+OPTIONS
+	Duplicated options are not harmful as long as they are correctly written. If they require an argument, each occurrence will override the previous one.
+	
+	-e
+		Exclude images, CSS and JS files from processing.
+		
+	-t hour
+		Take into account only hits that are between hour (included) and hour+1 (excluded). Format for hour can be either an integer between 0 and 23 included, or written as hh:mm between 00:00 and 23:59 (the first digit can be omitted if 0). In this case too, only hits that happened between this time and an hour after will be taken into account. However, if this time is more than 23:00, only hits until 23:59 included will be taken into account.
+		
+	-g file
+		Generates a .dot file bearing the given file name according to the data processed by the application. This only takes into account hits that were not excluded by other options. If a file with the same name as the one given already exists, it will be overwritten.
+		
+			
+1.0						2020-01-21					ANALOG
+
