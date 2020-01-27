@@ -2,7 +2,7 @@
 #include <regex>
 #include <vector>
 
-#include "Test.h"
+#include "LogInterface.h"
 
 //#define MAP
 

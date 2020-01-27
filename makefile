@@ -12,7 +12,7 @@ else
 endif
 CC = g++
 EXEC = analog
-SRC= main.cpp File.cpp Link.cpp Request.cpp Reader.cpp LogInterface.cpp Test.cpp
+SRC= main.cpp File.cpp Link.cpp Request.cpp Reader.cpp LogInterface.cpp
 OBJ= $(SRC:.cpp=.o)
 HEDR = $(SRC:.cpp=.h)
 
@@ -34,7 +34,10 @@ TP3.o: TP3.cpp
 %.o: %.cpp %.h
 	g++ -c $< $(CFLAGS)
 
-.PHONY = clean
+.PHONY = clean test
 
 clean:
 	rm -rf *.o
+
+test:
+	cd Framework/Tests;bash ./mktest.sh\
